@@ -286,7 +286,7 @@
   .modal-head h2{font-size:18px;margin:0;}
   .modal-head.in h2{color:var(--green);}
   .modal-head.out h2{color:var(--red);}
-  .modal-close{background:none;border:1px solid var(--border);border-radius:6px;width:28px;height:28px;font-size:14px;color:var(--red);}
+  .modal-close{background:none;border:1px solid var(--border);border-radius:6px;width:28px;height:28px;font-size:14px;color:#000;}
   .field{margin-bottom:16px;}
   .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;}
   .field .req{color:var(--red);}
@@ -1192,7 +1192,7 @@ function renderTxPage(){
                   <td>${t.category ? `<span class="tx-pill">${escapeHtml(t.category)}</span>` : '<span class="tx-no-bill">--</span>'}</td>
                   <td>${t.paymentMode ? escapeHtml(t.paymentMode) : '<span class="tx-no-bill">--</span>'}</td>
                   <td>${t.bill ? `<button type="button" class="tx-bill-btn" data-view-bill="${t.id}">📎 1 Attachment</button>` : '<span class="tx-no-bill">--</span>'}</td>
-                  <td class="col-amount"><span class="tx-amount ${t.type}">${t.type==='in'?'+':'-'}${fmtMoney(t.amount)}</span></td>
+                  <td class="col-amount"><span class="tx-amount ${t.type}">${fmtMoney(t.amount)}</span></td>
                   <td class="col-balance">${fmtMoney(balMap[t.id])}</td>
                 </tr>
               `).join('')}
@@ -1216,7 +1216,7 @@ function renderTxPage(){
                   ${t.paymentMode ? `<span class="tx-pill tx-pill-mode">${escapeHtml(t.paymentMode)}</span>` : ''}
                 </div>
                 <div class="tx-card-amount-wrap">
-                  <div class="tx-amount ${t.type}">${t.type==='in'?'+':'-'}${fmtMoney(t.amount)}</div>
+                  <div class="tx-amount ${t.type}">${fmtMoney(t.amount)}</div>
                   <div class="tx-card-balance">Balance: ${fmtMoney(balMap[t.id])}</div>
                 </div>
               </div>
@@ -2258,12 +2258,28 @@ init();
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+      // updateViaCache:'none' stops the browser from ever serving service-worker.js
+      // itself out of the HTTP cache — without this, phones were holding onto an old
+      // cached copy of the file and never noticing a new version had been deployed,
+      // which is why the Install/Update option wouldn't show up until the app was
+      // deleted and browser history/cache was cleared.
+      navigator.serviceWorker.register('./service-worker.js', { updateViaCache: 'none' })
+        .then((reg) => {
+          // Actively ask for the latest service worker right away, and again every
+          // time the app is re-opened/brought to the foreground, instead of relying
+          // on the browser's own slow/unpredictable update-check schedule.
+          reg.update().catch(()=>{});
+          document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') reg.update().catch(()=>{});
+          });
+        })
+        .catch(()=>{});
     });
 
     // When a new service worker takes over (i.e. you deployed an update),
     // reload the page once so the user sees the new version automatically —
-    // no need to delete the app or clear browser data.
+    // no need to delete the app or clear browser data. This only swaps the
+    // app's code/files; any saved cashbook data (stored separately) is untouched.
     let swRefreshed = false;
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (swRefreshed) return;
