@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>EasyBusy</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#3f5cf2">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="EasyBusy">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAALxElEQVR4nO3de4xcVQHH8e+dmd2ZfXRffdkufezC1lIBUyKPWqBQlNIFDQSIYkL4R0MMkhhMRAI2KP9oBBMTiBoFAZsQRIQqL9sQXpWntEhbChTYgtv3ttvtY58zc/zjtFJ2Z9s7u3vn3rnn90kmJbvDnel2vnvvzD3nXM8Yg4irEmE/AZEwKQBxmgIQpykAcZoCEKcpAHGaAhCnKQBxmgIQpykAcZoCEKcpAHGaAhCnKQBxmgIQpykAcZoCEKcpAHGaAhCnKQBxmgIQpykAcZoCEKcpAHGaAhCnKQBxmgIQpykAcZoCEKcpAHGaAhCnKQBxmgIQpykAcZoCEKcpAHGaAhCnKQBxWmr4F/IGcgbQ1VPHJJUEz+d9cwby+UCfTmg8z94Snv+fRxhGBLBxD+bhzdCXDePplL9fLMHLjPipFvbPDszqjmCfTxg8IJmAlAfpFGRSUFMBkyphShVMq4YZtTCjFq8i5GOQEf9UH++H362H/QMhPJsYuPM8+w/ux6vb4Df/Dvb5REHCg1TC3tJJe6tKQV0l5vRpsGQ2fH0uzKkr/c7C5z+VyNjlDQzm7K136PPf+88eWLnJxnHmdMx3FsDyVpheA3VpvKCLUAASCdk8vLHD3u58BS6cDcvmYtpPgeba4PYM+hRIImdvHzz2PvzwOVj2CNz3DmYgF8xjKQCJrN4sbOqC7z0DVzyG2bAHMzjBISgAiTwDPNsByx+Fe9dhDg1O3LYVgJSNbQfh9pfhxjUTd0ikAKSs9A7BQxvhqscxOw+P/3StApCytLoDbn0RuvvHF4ECkLI0lIeH34UVa8e3HQUgZWsgB/e8BQ9swOTGuB9QAFL2VqyFV7eN7VBIAUjZ6zwI96yDnoHiI1AAUvaMgVVb4LXtxf+/CkBioT8Lt700crDdiSgAiY11O+HxD4o7DFIAEhsGuHd9cZO5NBw6po5MOCnJfERzZBrtUB76huyfYfmwG17bjrlotr+/eUkDqE/DtQvsn3FVkQz7GVjtrXDHeVBVUZrHM8ZOfMnm4cCgfSFu6oK3dtox/j0lmmHY3Q+vb4cLZ+FrNk1JA2jMwC3nwNz6SM+TjoVJaWhtwKsuUQDDnTvzs//uy8LTH2N+vx7W74K9/TaYIGTz8OYOODCIqU+f+HWm9wASuKoUXDUP7+lr8FZ+A5a3QJCT4d/eDfv7/d1XAcRY1Fa2SSXgkha8+9vhkpbgHufTA7C71999FUCMRfE40wOm1+CtvBzaGoN5jKPzi/1QABKKhgze3UvtekFBeFMBSNQtaobFJwWz7Q+6/d1PAUhomjJ45zdDMoBjtY79/u6nACQ0CQ/OmAZ1AZwX2t3rb1yQApBQtTVBbQDvA/IGun0Mj1YAEqrmSXhBna3WHkAir7YimD0AKADnRe1EWCEJDxoywWzbzypyCiDGongirJBMQAMIK31sVwHEWDnsAcC+YQ1ClY+hngogxsplD9Ad0FDpyVUnvo8CkFD1DvkfuVmMyoQ90Xai+ykACVXnQUwQ16ObU+9vQowCkFC9tw8OTuBy50ctmOLvfgpAQpPNwxvbg5kueeZ0f/dTABKaPb2YNVsn/lMgz7MjTf1QABKaJz6EdbsmfrvNtdDa4O++WhZFSs4Am7swt75gD4Mm2pen2QUY/NAeIMaieCLMGFi3E3P9U8Ec+6cScM4MqK+M4LpAUlpRPBG2ugPzo+dh895gtt+YgfNnQdLnr3YFEGNh7wFyxp7oOjCAebfLLlu4akuwj/mlKbCo2X/7CiCmPj0AT36ISZdwpbo89pi+LwsHBmDnYdjaY1eIe2+vvaJLkFIJu/BaMX/nkgZwcBBWboSmqtB/OY1LTSVcf1okjzD+b22nXZawlE/SHLnl8nZ90KF8cCvAFXJFG3xtbnF/5ZIGsLcPfjrOi5pFQXMtXH9a2M/i+AZz/sbDx8WMGlix2O4FiqFPgaTspZNww0KY11T8Dk8BSNn7yhfgxoXFHfsfpQCkrM2pgwcugynVY3u7owCkbLU1wv3tcErj2N/rKwApS1Oq4K6lsMTnlWBGo/MAUnaqK+DPl8OlreP/lFd7ACk7kyrh5U7Y1IUZ71BqBSBlZ9dh+OXrcMXf4I/vjO+kqgKQspTL2wvx3fAsfGsVpqNnbHsDBSBl76/vw3VPwtrO4vcGCkDKXt7AK53w7b/Dmq26Urw4yAA7DsF1/4Dntvo/HFIAEiu7euHHL8Dmvf72BApAYmf9bvjBaq0OLY4yBl74L9yxFpM7waR7nQmOqcqkv9WRJ1IuD1ljf/MGteJzMR7cCN9sw5w7c/Qzxgogpi4/2U4QKWUEBvvbN5u3Kz7sOARbumFjF7y+HTp6ShvGzsPwl/dg4fTRh0qXNIDqCrjgJPtnOfO75kyY6tJ2lGRQF6Iei4/3Y57YYl+UW/bBvgBWhT5W3sBTH8FNZ2JaGgrvBUoawLRq+O0ymFsf7fm0cRG1H3JrA97NZ8F3z7Anre57x75Ag5wsv2UfPP8ptDQU/r7eBMdYBA7DC6pLQ/vJeH+4FG4+a2wzufwywEMbR/++AoixqO0BhmuqwluxGO+a+cE+zkudsONQ4d8HCkBClUnBXRfZBa2CYgys2Vr4ewpAQje9Bu9n59lLpgbluU8Kf10BSCSc2wxnTA1u+xt2F16JWgFIJDRl8M6eGdz2ewZhV+/I9wEKQCIhk4L5Tf4ubj0WA1nY0zvy6wpAIsHDXtkxqDPXg/nCl2NVABIZU6uCOyeQzdsVq4dTABIZdWmoCCiA3JFl24dTABIZFYngXpB57HLtwymAGIvqUIjRHL2+QCDbNvoY1DlRHwoxXDYfbLSFTrQpAImM3iF7rB4Ezyt84TwFIJHRM1D4OH0iJD3IFHiDrQAkMrr6gpsbkEwUnoilACQSDLDtYOGPKidCRQLq0yO/rgAkEvqy8EF3cO8BKpOFp7IqAImEnn7Mxj3BbT+dtFNyh1MAEgkf7Ye3dwe3/caMHXE6/OsKQEKXN/CrN4K9rvHCafaj0OEUgITukc2YZz4K9jEWNRf+uhbGktDkDby5A3PLi8F9/g/2DPAFs0b5XnAPK2GL8ligXB5WbcF8fzV0Hgj2sU6dDC2jrEWlPUCMRXEskAE2d2F+/i+7UkPQq8MBXDmv8PE/lDiAobx9t9+fjfQvp3GZ14QX5OoGfhkDuSO30j6wHXqcP7JI7mAO05+1wxzW74JH37cv/N6h0jyd6pQNYDQlDWD7Qbjs0Wj+Zpoou2+CSQXOOJbaul12efCKEh/kGuyozv4sdPfD3n57VcdPemwEpe7x7Jkwa9Lo3y9pAIZg14GUz2zYY28uSyXg4jl2BbrR7qM3wRJbM2rtMvHJ4xxyKACJrSvb4PSpxz/iVgASSzNr4fbFhSfBHEsBSOxkUnD3Uph6nGP/oxSAxErSg6u/CMtb/d1fAUistDbAbYugPu3v03YFILExtQrua4f5k/2falIAEgutDfbFf/5JxZ1nVQBS9qZWw6+XQntr8YMMNBhOylYyASc3wJ/a4avNYxthowCkLFWl4NoF8JNzoK1p7MPLFICUndl19nP+ZS14kyrHty0FIGUhlYDmWrh6vv2Ys7HABPcxbXciNiISlHQSzpoBl7bagW2nTcU73uC2YikAiaSZtXYiy7WnwimNMKV6Yl/4RykACYXnQWXCjtupStl1O2fWwpJZsKwFzp6Bly7Bq3PEQ0yrgYvnwqHB4B88jk40+vBYbY32HzvuPOzPJZOCmgpoSMPkKphSDdOr7Qt/dp29YHaqxGemPGM+P0ltMAeHhhj+ZfGpKYM32gTs4Xqz0DcU3/nRx/I8O1AtlcCrSNhrgUVhauyIAERcoqEQ4jQFIE5TAOI0BSBOUwDiNAUgTlMA4jQFIE5TAOI0BSBOUwDiNAUgTlMA4jQFIE5TAOI0BSBOUwDiNAUgTlMA4jQFIE5TAOI0BSBOUwDiNAUgTlMA4jQFIE5TAOI0BSBOUwDiNAUgTlMA4jQFIE5TAOI0BSBOUwDiNAUgTlMA4jQFIE77H3ml3xGE7tG0AAAAAElFTkSuQmCC">
+<style>
+  :root{
+    --blue:#3f5cf2;
+    --blue-dark:#2f47d1;
+    --blue-light:#eef1fe;
+    --green:#1b9c5b;
+    --green-light:#e8f8f0;
+    --red:#e0453b;
+    --red-light:#fdecea;
+    --amber:#e0a800;
+    --bg:#f4f5fa;
+    --sidebar:#ffffff;
+    --border:#e6e8f0;
+    --text:#1f2430;
+    --text-dim:#6b7280;
+    --radius:8px;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;overflow:hidden;overscroll-behavior-y:contain;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);overscroll-behavior:contain;}
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+
+  /* ---- App shell ---- */
+  .app{display:flex;height:100vh;height:100dvh;overflow:hidden;overscroll-behavior:contain;}
+
+  /* ---- Sidebar ---- */
+  .sidebar{width:220px;background:var(--sidebar);border-right:1px solid var(--border);padding:18px 12px;flex-shrink:0;display:flex;flex-direction:column;height:100vh;height:100dvh;overflow-y:auto;overscroll-behavior:contain;}
+  .sidebar-footer{margin-top:auto;padding:12px 8px 10px;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--border);}
+  .sidebar-action-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--border);background:#fff;color:#6b7280;font-size:12.5px;font-weight:700;cursor:pointer;transition:background .15s,border-color .15s;}
+  .sidebar-action-btn:hover{background:#f7f8fc;}
+  .sidebar-backup-btn{color:var(--blue);border-color:#d9defc;background:#f8f9ff;}
+  .sidebar-backup-btn:hover{background:var(--blue-light);border-color:#cbd2ff;}
+  .sidebar-import-btn{color:#555f70;}
+  .sidebar-action-btn span{font-size:14px;line-height:1;}
+  .contact-row{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:8px;margin-top:10px;text-decoration:none;color:var(--text);}
+  .contact-row:hover{background:#f7f8fc;}
+  .contact-row .ico{font-size:18px;}
+  .contact-row .lbl{font-size:11px;color:var(--text-dim);}
+  .contact-row .val{font-size:14px;font-weight:600;}
+  .confirm-modal{text-align:center;padding:28px 26px 24px;}
+  .confirm-icon{width:52px;height:52px;border-radius:50%;background:#fdecec;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px;}
+  .confirm-icon:not(.danger){background:var(--blue-light,#eef1fe);}
+  .confirm-title{font-size:17px;margin:0 0 8px;}
+  .confirm-msg{font-size:13.5px;color:var(--text-dim);margin:0 0 6px;line-height:1.5;}
+  .row-menu-wrap{position:relative;display:flex;align-items:center;}
+  .row-menu-btn{background:none;border:none;color:var(--text-dim);font-size:19px;padding:4px 8px;border-radius:6px;cursor:pointer;line-height:1;}
+  .row-menu-btn:hover{background:#f0f1f5;}
+  .row-menu{position:absolute;top:calc(100% + 4px);right:0;min-width:170px;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 28px rgba(20,22,35,.14);padding:6px;z-index:60;}
+  .row-menu button{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:none;padding:9px 10px;font-size:13.5px;border-radius:6px;cursor:pointer;color:var(--text);}
+  .row-menu button:hover{background:#f5f6fa;}
+  .row-menu button.danger{color:var(--red);}
+  .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:18px;color:var(--blue);padding:0 8px 20px 8px;}
+  .logo .mark{width:36px;height:32px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .logo .mark img{width:100%;height:100%;object-fit:cover;display:block;}
+  .nav-section{font-size:11px;letter-spacing:.04em;color:var(--text-dim);text-transform:uppercase;margin:16px 8px 6px;}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--radius);font-size:14px;color:#3a3f4b;cursor:pointer;}
+  .nav-item .ico{width:18px;text-align:center;}
+  .nav-item.active{background:var(--blue);color:#fff;font-weight:600;}
+  .nav-item:not(.active):hover{background:#f1f3fb;}
+
+  /* ---- Main ---- */
+  .main{flex:1;min-width:0;height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;overscroll-behavior:contain;padding:22px 28px;}
+  #view{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;}
+  .page-flex{display:flex;flex-direction:column;height:100%;min-height:0;}
+  .page-flex-top{flex-shrink:0;}
+  .page-flex-scroll{flex:1;overflow-y:auto;min-height:0;overscroll-behavior:contain;}
+  .page-flex-bottom{flex-shrink:0;}
+  .tx-fixed-actions{
+    position:fixed;left:0;right:0;bottom:0;z-index:40;
+    display:flex;gap:12px;
+    padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));
+    background:#fff;
+    box-shadow:0 -4px 16px rgba(20,22,35,.10);
+  }
+  @media (min-width:861px){
+    .tx-fixed-actions{ left:220px; }
+  }
+  .tx-fixed-actions .btn{flex:1;padding:14px 0;font-size:15px;border-radius:10px;font-weight:700;letter-spacing:.2px;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.08);}
+  .tx-scroll-pad{padding-bottom:88px;}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px;}
+  .user-chip{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;}
+  .user-chip .avatar{width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;}
+
+  h1.page-title{font-size:22px;margin:0 0 18px;}
+
+  .btn{border:none;border-radius:var(--radius);padding:10px 16px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;}
+  .btn-primary{background:var(--blue);color:#fff;}
+  .btn-primary:hover{background:var(--blue-dark);}
+  .btn-outline{background:#fff;border:1px solid var(--border);color:var(--text);}
+  .btn-outline:hover{background:#f7f8fc;}
+  .btn-green{background:var(--green);color:#fff;}
+  .btn-red{background:var(--red);color:#fff;}
+  .btn:disabled{opacity:.5;cursor:not-allowed;}
+  .btn-backup{padding:10px 18px;font-size:14px;transition:background .15s,box-shadow .15s,transform .15s;}
+  .btn-backup svg{width:16px;height:16px;flex-shrink:0;}
+  .btn-export{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;box-shadow:0 2px 6px rgba(63,92,242,.28);}
+  .btn-export:hover{box-shadow:0 4px 12px rgba(63,92,242,.38);transform:translateY(-1px);}
+  .btn-import{background:#fff;border:1.5px solid var(--blue);color:var(--blue);}
+  .btn-import:hover{background:var(--blue-light);transform:translateY(-1px);}
+
+  /* ---- Business switcher (top-right dropdown) ---- */
+  .biz-select{position:relative;}
+  .biz-select-btn{display:flex;align-items:center;gap:8px;border:1px solid var(--border);background:#fff;border-radius:var(--radius);padding:8px 12px;font-size:14px;min-width:220px;max-width:280px;font-weight:600;color:var(--text);}
+  .biz-select-btn .chev{margin-left:auto;color:var(--text-dim);font-size:14px;font-weight:900;}
+  .biz-select-btn span#bizSelectLabel{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .biz-ico{width:22px;height:22px;border-radius:5px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+  .biz-dropdown{position:absolute;top:calc(100% + 6px);right:0;width:300px;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 28px rgba(20,22,35,.14);padding:10px;z-index:50;}
+  .biz-search{position:relative;margin-bottom:8px;}
+  .biz-search input{width:100%;padding:9px 34px 9px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:#fff;}
+  .biz-search .ico{position:absolute;right:11px;top:50%;transform:translateY(-50%);color:var(--text-dim);font-size:13px;}
+  .biz-list{max-height:220px;overflow-y:auto;margin-bottom:8px;}
+  .biz-list-item{display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:6px;font-size:14px;cursor:pointer;}
+  .biz-list-item:hover{background:#f7f8fc;}
+  .biz-list-item.sel{background:var(--blue-light);}
+  .biz-radio{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;position:relative;}
+  .biz-list-item.sel .biz-radio{border-color:var(--blue);}
+  .biz-list-item.sel .biz-radio::after{content:'';position:absolute;inset:2px;border-radius:50%;background:var(--blue);}
+  .biz-add-btn{width:100%;justify-content:center;}
+
+  /* ---- Books list page ---- */
+  .toolbar{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
+  .search-input{position:relative;flex:1;min-width:220px;max-width:420px;}
+  .search-input input{width:100%;padding:10px 12px 10px 34px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;background:#fff;}
+  .search-input .ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-dim);}
+  select.sort{border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;background:#fff;font-size:14px;}
+
+  .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);}
+  .book-row{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border);cursor:pointer;}
+  .book-row:last-child{border-bottom:none;}
+  .book-info{display:flex;align-items:center;gap:12px;cursor:pointer;}
+  .book-icon{width:34px;height:34px;border-radius:6px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .book-name{font-weight:600;font-size:15px;}
+  .book-meta{font-size:12px;color:var(--text-dim);margin-top:2px;}
+  .book-actions{display:flex;align-items:center;gap:16px;}
+  .book-balance{font-weight:700;font-size:14px;min-width:70px;text-align:right;}
+  .icon-btn{background:none;border:none;color:var(--text-dim);font-size:15px;padding:4px;border-radius:4px;}
+  .icon-btn:hover{color:var(--blue);background:var(--blue-light);}
+  .icon-btn.danger:hover{color:var(--red);background:var(--red-light);}
+
+  .add-book-tile{display:flex;align-items:center;gap:12px;padding:16px 18px;}
+  .add-book-tile .book-icon{background:var(--green-light);color:var(--green);}
+  .quick-tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
+  .quick-tags span{border:1px solid var(--border);color:var(--blue);padding:5px 12px;border-radius:20px;font-size:12px;cursor:pointer;}
+  .quick-tags span:hover{background:var(--blue-light);}
+
+  .empty-state{padding:60px 20px;text-align:center;color:var(--text-dim);}
+  .empty-state .big{font-size:15px;color:var(--text);margin-bottom:6px;}
+
+  /* ---- Transactions page ---- */
+  .tx-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+  .tx-title{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;}
+  .tx-sel-actions{display:flex;align-items:center;gap:4px;}
+  .tx-sel-actions .icon-btn{font-size:17px;padding:6px 9px;}
+  .col-select{width:36px;}
+  .tx-select-mark{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);color:#fff;font-size:12px;cursor:pointer;}
+  .tx-select-mark.checked{background:var(--blue);border-color:var(--blue);}
+  tr.tx-row-selected{background:var(--blue-light,#eef1fe);}
+  .view-reports-link{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:11px;margin-bottom:16px;color:var(--blue);font-weight:700;font-size:14px;cursor:pointer;}
+  .back-btn{background:none;border:none;font-size:22px;font-weight:900;color:var(--text);padding:6px;border-radius:6px;line-height:1;}
+  .back-btn:hover{background:#eceefb;}
+
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+  .filters select{border:1px solid var(--border);background:#fff;border-radius:var(--radius);padding:8px 10px;font-size:13px;}
+
+  .summary-bar{display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
+  .summary-card{flex:1;min-width:150px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;}
+  .summary-card .label{font-size:12px;color:var(--text-dim);margin-bottom:6px;}
+  .summary-card .val{font-size:18px;font-weight:700;}
+  .summary-card.in .val{color:var(--green);}
+  .summary-card.out .val{color:var(--red);}
+  .summary-card.net .val{color:var(--blue);}
+
+  .tx-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap;}
+
+  .tx-list .book-row{padding:14px 18px;}
+  .tx-left{display:flex;gap:12px;align-items:center;}
+  .tx-dot{width:8px;height:8px;border-radius:50%;}
+  .tx-dot.in{background:var(--green);}
+  .tx-dot.out{background:var(--red);}
+  .tx-remark{font-weight:600;font-size:14px;}
+  .tx-meta{font-size:12px;color:var(--text-dim);margin-top:3px;}
+  .tx-amount{font-weight:700;font-size:15px;}
+  .tx-amount.in{color:var(--green);}
+  .tx-amount.out{color:var(--red);}
+
+  /* ---- Transactions table ---- */
+  .tx-table-wrap{overflow-x:auto;}
+  .tx-table{width:100%;min-width:880px;border-collapse:collapse;}
+  .tx-table thead th{text-align:left;font-size:12px;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.02em;padding:12px 14px;border-bottom:1px solid var(--border);background:#fafbfd;white-space:nowrap;}
+  .tx-table tbody td{padding:13px 14px;border-bottom:1px solid var(--border);font-size:13.5px;vertical-align:middle;white-space:nowrap;}
+  .tx-table tbody tr:last-child td{border-bottom:none;}
+  .tx-table tbody tr:hover{background:#fafbfd;}
+  .tx-table td.col-details{white-space:normal;min-width:160px;}
+  .tx-table th.col-amount, .tx-table td.col-amount{text-align:right;}
+  .tx-table th.col-balance, .tx-table td.col-balance{text-align:right;}
+  .tx-table th.col-actions, .tx-table td.col-actions{text-align:right;}
+  .tx-date-main{font-weight:600;}
+  .tx-date-sub{font-size:12px;color:var(--text-dim);}
+  .tx-bill-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:12px;color:var(--blue);cursor:pointer;}
+  .tx-bill-btn:hover{background:var(--blue-light);}
+  .tx-no-bill{color:var(--text-dim);}
+  .tx-pill{display:inline-block;padding:3px 9px;border-radius:20px;font-size:12px;background:#f1f3fb;color:#3a3f4b;}
+  .tx-pill-mode{background:var(--blue-light);color:var(--blue);}
+
+  /* ---- Mobile transaction cards (replaces the scrollable table on small screens) ---- */
+  .tx-card-list{display:none;flex-direction:column;gap:10px;padding-top:6px;}
+  .tx-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;position:relative;transition:border-color .15s,background .15s;}
+  .tx-card.tx-row-selected{border-color:var(--blue);background:var(--blue-light);}
+  .tx-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .tx-card-tags{display:flex;flex-wrap:wrap;gap:6px;padding-right:6px;}
+  .tx-card-amount-wrap{text-align:right;flex-shrink:0;}
+  .tx-card-amount-wrap .tx-amount{font-size:19px;}
+  .tx-card-balance{font-size:12.5px;color:var(--text-dim);margin-top:2px;white-space:nowrap;}
+  .tx-card-remark{font-size:14px;font-weight:600;margin-top:12px;word-break:break-word;}
+  .tx-card-more{background:none;border:none;color:var(--blue);font-weight:600;font-size:13px;padding:8px 0 0;cursor:pointer;}
+  .tx-card-more-fields{margin-top:8px;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--text-dim);}
+  .tx-card-more-fields .row{display:flex;justify-content:space-between;gap:10px;}
+  .tx-card-more-fields .row span:last-child{color:var(--text);text-align:right;}
+  .tx-card-divider{height:1px;background:var(--border);margin:12px 0 10px;}
+  .tx-card-footer{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--text-dim);}
+  .tx-card-footer .entry-by{color:var(--blue);font-weight:600;}
+  .tx-card-actions{display:flex;gap:6px;flex-shrink:0;}
+  .tx-card-select-mark{position:absolute;top:-8px;left:-8px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.18);}
+
+  @media (max-width:760px){
+    .tx-table-wrap{display:none;}
+    .tx-card-list{display:flex;}
+  }
+
+  /* ---- Business Settings page ---- */
+  .settings-layout{display:flex;gap:20px;align-items:flex-start;}
+  .settings-subnav{width:220px;flex-shrink:0;}
+  .settings-subnav-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:10px;cursor:pointer;}
+  .settings-subnav-item:hover{border-color:#c7cdf5;}
+  .settings-subnav-item.active{border-color:var(--blue);background:var(--blue-light);}
+  .settings-subnav-item .subnav-title{font-weight:600;font-size:14px;color:var(--text);}
+  .settings-subnav-item.active .subnav-title{color:var(--blue);}
+  .settings-subnav-item .subnav-sub{font-size:12px;color:var(--text-dim);margin-top:2px;}
+  .settings-content{flex:1;min-width:0;}
+  .profile-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:18px;}
+  .profile-card-head{display:flex;align-items:center;gap:12px;}
+  .profile-card-head .book-icon{width:40px;height:40px;font-size:18px;}
+  .profile-title{font-weight:700;font-size:16px;}
+  .profile-warn{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--red);margin-top:2px;}
+  .strength-row{display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin:14px 0 6px;}
+  .strength-bar{height:6px;border-radius:4px;background:#eee;overflow:hidden;}
+  .strength-bar-fill{height:100%;background:var(--red);}
+  .strength-bar-fill.med{background:var(--amber);}
+  .strength-bar-fill.high{background:var(--green);}
+  .incomplete-banner{display:flex;gap:10px;align-items:flex-start;background:var(--blue-light);color:#33406b;border-radius:6px;padding:10px 12px;font-size:13px;margin-top:14px;}
+  .settings-section{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;}
+  .settings-section h4{font-size:14px;margin:0 0 14px;border-bottom:1px solid var(--border);padding-bottom:10px;}
+  .settings-field{display:flex;gap:12px;margin-bottom:16px;}
+  .settings-field:last-child{margin-bottom:0;}
+  .settings-field-icon{width:20px;color:var(--text-dim);padding-top:26px;text-align:center;flex-shrink:0;}
+  .settings-field-body{flex:1;min-width:0;}
+  .settings-field-body label{display:block;font-size:12px;color:var(--text-dim);margin-bottom:5px;}
+  .settings-field-input-wrap{display:flex;gap:8px;}
+  .settings-field-input-wrap input, .settings-field-body select{flex:1;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;background:#fff;width:100%;}
+  .settings-field-input-wrap input:disabled{color:var(--text);background:#fbfbfd;}
+  .danger-zone{border:1px solid #f7d3cf;background:var(--red-light);border-radius:var(--radius);padding:18px 20px;}
+  .danger-zone h4{margin:0 0 6px;color:var(--red);font-size:14px;}
+  .danger-zone p{font-size:13px;color:var(--text-dim);margin:0 0 12px;}
+
+  /* ---- Modal ---- */
+  .overlay{position:fixed;inset:0;background:rgba(20,22,35,.45);display:flex;align-items:flex-start;justify-content:flex-end;z-index:100;}
+  .overlay.center{align-items:center;justify-content:center;}
+  .modal{background:#fff;width:420px;max-width:92vw;height:100%;overflow-y:auto;padding:24px;box-shadow:-4px 0 24px rgba(0,0,0,.08);}
+  .overlay.center .modal{height:auto;max-height:90vh;border-radius:12px;width:420px;}
+  .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+  .modal-head h2{font-size:18px;margin:0;}
+  .modal-head.in h2{color:var(--green);}
+  .modal-head.out h2{color:var(--red);}
+  .modal-close{background:none;border:1px solid var(--border);border-radius:6px;width:28px;height:28px;font-size:14px;color:var(--red);}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;}
+  .field .req{color:var(--red);}
+  .field input, .field select, .field textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;background:#fff;}
+  .field-row{display:flex;gap:12px;}
+  .field-row .field{flex:1;}
+  .type-toggle{display:flex;gap:8px;margin-bottom:20px;}
+  .type-toggle button{flex:1;padding:10px;border-radius:var(--radius);border:1px solid var(--border);background:#fff;font-weight:600;font-size:14px;color:var(--text-dim);}
+  .type-toggle button.sel-in{background:var(--green);border-color:var(--green);color:#fff;}
+  .type-toggle button.sel-out{background:var(--red);border-color:var(--red);color:#fff;}
+  .modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:8px;}
+  .tx-modal{display:flex;flex-direction:column;padding:0 !important;}
+  .tx-modal .modal-head{padding:20px 24px 0;margin-bottom:14px;flex-shrink:0;}
+  .tx-modal .tx-scroll{flex:1;overflow-y:auto;padding:0 24px;min-height:0;}
+  .tx-modal .modal-footer{padding:12px 24px;margin:0;border-top:1px solid var(--border);flex-shrink:0;flex-wrap:wrap;}
+  .tx-modal .modal-footer #deleteTxBtn{margin-right:auto;}
+  .tx-modal .keypad{border-top:1px solid var(--border);padding:10px 14px calc(16px + env(safe-area-inset-bottom, 10px));background:#fafbfc;flex-shrink:0;}
+  .keypad-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .keypad-grid button{padding:16px 0;font-size:17px;border:none;border-radius:8px;background:#eef0f4;color:var(--text);cursor:pointer;font-weight:600;touch-action:manipulation;}
+  .keypad-grid button.op{background:#eef1fe;color:var(--blue);}
+  .keypad-grid button.eq{background:#eef1fe;color:var(--blue);}
+  .keypad-grid button.go{background:var(--blue);color:#fff;font-size:18px;}
+  .extra-fields-enter{animation:extraFieldsIn .18s ease;}
+  @keyframes extraFieldsIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+  .helper{font-size:12px;color:var(--text-dim);margin-top:-8px;margin-bottom:16px;}
+
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1f2430;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;z-index:200;opacity:0;transition:opacity .2s;}
+  .toast.show{opacity:1;}
+
+  ::placeholder{color:#9aa0ac;}
+
+  /* ---- Mobile menu toggle + sidebar overlay ---- */
+  .menu-toggle{display:none;background:#fff;border:1px solid var(--border);border-radius:var(--radius);width:38px;height:38px;font-size:18px;align-items:center;justify-content:center;color:var(--text);flex-shrink:0;}
+  .menu-toggle:hover{background:#f1f3fb;}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(20,22,35,.45);z-index:150;}
+  .sidebar-overlay.show{display:block;}
+  .sidebar-close-btn{display:none;position:absolute;top:10px;right:10px;width:32px;height:32px;border:none;background:transparent;color:var(--text-dim);font-size:18px;align-items:center;justify-content:center;border-radius:8px;cursor:pointer;z-index:1;}
+  .sidebar-close-btn:hover{background:#f1f3fb;color:var(--text);}
+
+  @media (max-width:860px){
+    .app{position:relative;}
+    .sidebar{
+      position:fixed;
+      top:0;left:0;
+      z-index:200;
+      transform:translateX(-100%);
+      transition:transform .25s ease;
+      box-shadow:2px 0 24px rgba(0,0,0,.18);
+    }
+    .sidebar.open{transform:translateX(0);}
+    .menu-toggle{display:flex;}
+    .sidebar-close-btn{display:flex;}
+    .settings-layout{flex-direction:column;}
+    .biz-select-btn{min-width:0;}
+  }
+
+  @media (max-width:480px){
+    .main{padding:16px;}
+    .topbar{gap:8px;}
+    .biz-select-btn{padding:8px 10px;font-size:13px;}
+    .biz-select-btn span#bizSelectLabel{max-width:38vw;}
+    .modal{width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <button class="sidebar-close-btn" id="sidebarCloseBtn" type="button" title="Close" aria-label="Close menu">&#10005;</button>
+    <div class="logo"><div class="mark"><img src="data:image/png;base64,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" alt="EB"></div> EasyBusy</div>
+    <div class="nav-section">Book Keeping</div>
+    <div class="nav-item active" id="navCashbooks"><span class="ico">📘</span> Cashbooks</div>
+    <div class="nav-section">Settings</div>
+    <div class="nav-item" id="navBizSettings"><span class="ico">⚙️</span> Business Settings</div>
+
+          <div class="sidebar-footer">
+       <button class="sidebar-action-btn sidebar-backup-btn" id="sidebarExportBtn" type="button">
+         <span>⇩</span> Export Backup
+       </button>
+       <button class="sidebar-action-btn sidebar-import-btn" id="sidebarImportBtn" type="button">
+         <span>⇧</span> Import Backup
+       </button>
+       <input type="file" id="sidebarImportFileInput" accept=".json,application/json" style="display:none;">
+       <button class="sidebar-action-btn" id="supportBtn" type="button">Support</button>
+     </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left" style="display:flex;align-items:center;gap:10px;">
+        <button class="menu-toggle" id="menuToggleBtn" type="button" title="Menu">☰</button>
+        <button type="button" class="btn btn-outline" id="topbarBackBtn" style="display:none;">&larr; Back to Cashbook</button>
+      </div>
+      <div class="biz-select" id="bizSelectWrap">
+        <button class="biz-select-btn" id="bizSelectBtn" type="button">
+          <span class="biz-ico">🏢</span>
+          <span id="bizSelectLabel"></span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="biz-dropdown" id="bizDropdown" style="display:none;"></div>
+      </div>
+    </div>
+
+    <div id="view"></div>
+  </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div id="modalRoot"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   STATE + PERSISTENCE (uses localStorage, saved in this browser)
+   ========================================================= */
+const STORE_KEYS = { businesses: 'businesses_list', currentBiz: 'current_business_id' };
+const CASH_IN_CATEGORIES = ['Sales','Service Income','Loan Received','Investment Received','Interest Income','Refund Received','Commission','Other Income'];
+const CASH_OUT_CATEGORIES = ['Purchase','Expense','Salary','Rent','Utilities','Transport','Food','Marketing','Maintenance','Misc'];
+const DEFAULT_CATEGORIES = [...CASH_IN_CATEGORIES, ...CASH_OUT_CATEGORIES];
+const DEFAULT_MODES = ['Cash','UPI','Bank Transfer','Cheque','Card'];
+let state = {
+  businesses: [],       // {id, name, address, staffSize, category, subcategory, type, registrationType, email, mobile}
+  currentBusinessId: null,
+  books: [],             // {id, name, createdAt, updatedAt}
+  transactions: {},      // bookId -> [{id,type,date,time,amount,contact,remarks,category,paymentMode}]
+  customCategories: []   // user-added transaction categories
+};
+let route = { page: 'books', bookId: null };
+
+function uid(prefix){ return prefix + '_' + Math.random().toString(36).slice(2,10); }
+function currentBiz(){ return state.businesses.find(b=>b.id===state.currentBusinessId); }
+
+const LS_PREFIX = 'easybusy_';
+async function safeGet(key){
+  try{
+    const raw = localStorage.getItem(LS_PREFIX + key);
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+async function safeSet(key, value){
+  try{ localStorage.setItem(LS_PREFIX + key, JSON.stringify(value)); }catch(e){ console.warn('storage set failed', e); }
+}
+async function safeDelete(key){
+  try{ localStorage.removeItem(LS_PREFIX + key); }catch(e){}
+}
+
+async function loadAll(){
+  let businesses = await safeGet(STORE_KEYS.businesses);
+  if(!businesses || !businesses.length){
+    businesses = [{
+      id: uid('biz'), name: "Demo Business",
+      address:'', staffSize:'', category:'', subcategory:'', type:'', registrationType:'', email:'', mobile:''
+    }];
+    await safeSet(STORE_KEYS.businesses, businesses);
+  }
+  state.businesses = businesses;
+
+  let curId = await safeGet(STORE_KEYS.currentBiz);
+  if(!curId || !businesses.find(b=>b.id===curId)) curId = businesses[0].id;
+  state.currentBusinessId = curId;
+  await safeSet(STORE_KEYS.currentBiz, curId);
+
+  state.customCategories = (await safeGet('custom_categories')) || [];
+
+  await loadBooksForCurrentBusiness();
+}
+
+async function persistCustomCategories(){ await safeSet('custom_categories', state.customCategories); }
+
+async function loadBooksForCurrentBusiness(){
+  const bizId = state.currentBusinessId;
+  let books = await safeGet('books_list_' + bizId);
+  if(!books){
+    const isDefaultFirstBiz = state.businesses[0] && state.businesses[0].id === bizId;
+    if(isDefaultFirstBiz){
+      // seed with example books matching the reference screenshots
+      books = [
+        { id: uid('bk'), name: 'xyz Co', createdAt: Date.now()-2600000, updatedAt: Date.now()-300000 },
+        { id: uid('bk'), name: 'Ali Co', createdAt: Date.now()-2600000, updatedAt: Date.now()-360000 },
+        { id: uid('bk'), name: 'Business Book', createdAt: Date.now()-2600000000, updatedAt: Date.now()-2600000000 }
+      ];
+    } else {
+      books = [];
+    }
+    await safeSet('books_list_' + bizId, books);
+  }
+  state.books = books;
+  state.transactions = {};
+  for(const b of books){
+    const tx = await safeGet('tx_' + bizId + '_' + b.id);
+    state.transactions[b.id] = tx || [];
+  }
+}
+
+async function persistBooks(){ await safeSet('books_list_' + state.currentBusinessId, state.books); }
+async function persistTx(bookId){ await safeSet('tx_' + state.currentBusinessId + '_' + bookId, state.transactions[bookId] || []); }
+async function persistBusinesses(){ await safeSet(STORE_KEYS.businesses, state.businesses); }
+async function persistCurrentBiz(){ await safeSet(STORE_KEYS.currentBiz, state.currentBusinessId); }
+
+/* =========================================================
+   SAVE TO DATA FOLDER (File System Access API — Chrome/Edge/
+   Opera only; not supported in Firefox or Safari)
+   ========================================================= */
+const FS_DB_NAME = 'easybusy_fs_handles';
+const FS_STORE_NAME = 'handles';
+function fsIdbOpen(){
+  return new Promise((resolve,reject)=>{
+    const req = indexedDB.open(FS_DB_NAME, 1);
+    req.onupgradeneeded = ()=> req.result.createObjectStore(FS_STORE_NAME);
+    req.onsuccess = ()=> resolve(req.result);
+    req.onerror = ()=> reject(req.error);
+  });
+}
+async function fsIdbSet(key, val){
+  const db = await fsIdbOpen();
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(FS_STORE_NAME,'readwrite');
+    tx.objectStore(FS_STORE_NAME).put(val, key);
+    tx.oncomplete = ()=> resolve();
+    tx.onerror = ()=> reject(tx.error);
+  });
+}
+async function fsIdbGet(key){
+  const db = await fsIdbOpen();
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(FS_STORE_NAME,'readonly');
+    const req = tx.objectStore(FS_STORE_NAME).get(key);
+    req.onsuccess = ()=> resolve(req.result);
+    req.onerror = ()=> reject(req.error);
+  });
+}
+
+function setupSupportBtn(){
+  const btn = document.getElementById('supportBtn');
+  if(!btn) return;
+  btn.onclick = ()=>{
+    const modalRoot = document.getElementById('modalRoot');
+    modalRoot.innerHTML = `
+      <div class="overlay center" id="ov">
+        <div class="modal" style="height:auto;">
+          <div class="modal-head">
+            <h2>Contact Support</h2>
+            <button class="modal-close" id="closeModal">✕</button>
+          </div>
+          <a class="contact-row" href="mailto:sooordigital@gmail.com">
+            <span class="ico">✉️</span>
+            <span><span class="lbl">Email</span><br><span class="val">sooordigital@gmail.com</span></span>
+          </a>
+          <a class="contact-row" href="https://wa.me/923111085265" target="_blank" rel="noopener">
+            <span class="ico">💬</span>
+            <span><span class="lbl">WhatsApp</span><br><span class="val">+92 311 1085265</span></span>
+          </a>
+        </div>
+      </div>
+    `;
+    const close = ()=> modalRoot.innerHTML = '';
+    document.getElementById('closeModal').onclick = close;
+    document.getElementById('ov').onclick = (e)=>{ if(e.target.id==='ov') close(); };
+  };
+}
+
+
+
+
+
+function fmtMoney(n){
+  const v = Number(n)||0;
+  return (v<0?'-':'') + Math.abs(v).toLocaleString('en-IN', {maximumFractionDigits:2});
+}
+function fmtAgo(ts){
+  const diff = Date.now() - ts;
+  const min = Math.floor(diff/60000);
+  if(min < 1) return 'Updated just now';
+  if(min < 60) return 'Updated ' + min + ' minute' + (min===1?'':'s') + ' ago';
+  const hr = Math.floor(min/60);
+  if(hr < 24) return 'Updated ' + hr + ' hour' + (hr===1?'':'s') + ' ago';
+  const day = Math.floor(hr/24);
+  if(day < 30) return 'Updated ' + day + ' day' + (day===1?'':'s') + ' ago';
+  const mon = Math.floor(day/30);
+  return 'Updated about ' + mon + ' month' + (mon===1?'':'s') + ' ago';
+}
+function bookTotals(bookId){
+  const list = state.transactions[bookId] || [];
+  let inSum=0, outSum=0;
+  list.forEach(t=> t.type==='in' ? inSum+=Number(t.amount) : outSum+=Number(t.amount));
+  return { inSum, outSum, net: inSum-outSum, count:list.length };
+}
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 1800);
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// Keeps a modal overlay (and its Save button) above the on-screen keyboard on mobile.
+// When the keyboard opens, the visual viewport shrinks; we resize/reposition the overlay
+// to match it so the modal (and its footer buttons) stay fully visible instead of being
+// pushed down behind the keyboard. Returns a cleanup function to call when the modal closes.
+function setupKeyboardAvoidingOverlay(ovEl){
+  if(!window.visualViewport || !ovEl) return ()=>{};
+  const vv = window.visualViewport;
+  const modalEl = ovEl.querySelector('.modal');
+  const adjust = ()=>{
+    ovEl.style.height = vv.height + 'px';
+    ovEl.style.top = vv.offsetTop + 'px';
+    if(modalEl) modalEl.style.maxHeight = Math.round(vv.height * 0.92) + 'px';
+  };
+  vv.addEventListener('resize', adjust);
+  vv.addEventListener('scroll', adjust);
+  adjust();
+  return ()=>{
+    vv.removeEventListener('resize', adjust);
+    vv.removeEventListener('scroll', adjust);
+  };
+}
+
+// Shows an attached Bill/Receipt file (image or PDF) in a lightbox-style modal.
+// Using an in-app viewer instead of window.open() avoids popup blockers silently
+// swallowing data: URLs in installed/PWA mode, which was preventing attachments from
+// ever being viewable even though the upload itself worked fine.
+function openBillViewer(bill){
+  if(!bill || !bill.dataUrl) return;
+  const modalRoot = document.getElementById('modalRoot');
+  const isImage = bill.dataUrl.startsWith('data:image');
+  modalRoot.innerHTML = `
+    <div class="overlay center" id="ov">
+      <div class="modal" style="height:auto;max-height:90vh;">
+        <div class="modal-head">
+          <h2 style="font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(bill.name)}</h2>
+          <button class="modal-close" id="closeModal">✕</button>
+        </div>
+        <div style="text-align:center;background:var(--bg);border-radius:8px;padding:${isImage?'0':'30px 10px'};overflow:hidden;">
+          ${isImage
+            ? `<img src="${bill.dataUrl}" alt="${escapeHtml(bill.name)}" style="max-width:100%;max-height:65vh;display:block;margin:0 auto;border-radius:8px;">`
+            : `<div style="font-size:40px;">📄</div><div style="color:var(--text-dim);font-size:13px;margin-top:8px;">Preview not available for this file type</div>`
+          }
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-outline" href="${bill.dataUrl}" download="${escapeHtml(bill.name)}">Download</a>
+          <a class="btn btn-primary" href="${bill.dataUrl}" target="_blank" rel="noopener">Open</a>
+        </div>
+      </div>
+    </div>
+  `;
+  const close = ()=> modalRoot.innerHTML = '';
+  document.getElementById('closeModal').onclick = close;
+  document.getElementById('ov').onclick = (e)=>{ if(e.target.id==='ov') close(); };
+}
+
+// Professional in-app replacement for the browser's native confirm() popup.
+// Returns a Promise<boolean> — resolves true only if the user pressed the confirm button.
+function showConfirmDialog(message, opts={}){
+  const title = opts.title || 'Are you sure?';
+  const confirmText = opts.confirmText || 'Delete';
+  const cancelText = opts.cancelText || 'Cancel';
+  const danger = opts.danger !== false;
+  return new Promise((resolve)=>{
+    const modalRoot = document.getElementById('modalRoot');
+    modalRoot.innerHTML = `
+      <div class="overlay center" id="ov">
+        <div class="modal confirm-modal" style="height:auto;">
+          <div class="confirm-icon ${danger?'danger':''}">${danger ? '⚠️' : 'ℹ️'}</div>
+          <h2 class="confirm-title">${escapeHtml(title)}</h2>
+          <p class="confirm-msg">${escapeHtml(message)}</p>
+          <div class="modal-footer" style="justify-content:center;">
+            <button class="btn btn-outline" id="confirmCancelBtn">${escapeHtml(cancelText)}</button>
+            <button class="btn ${danger?'btn-red':'btn-primary'}" id="confirmOkBtn">${escapeHtml(confirmText)}</button>
+          </div>
+        </div>
+      </div>
+    `;
+    const close = (result)=>{ modalRoot.innerHTML=''; resolve(result); };
+    document.getElementById('ov').onclick = (e)=>{ if(e.target.id==='ov') close(false); };
+    document.getElementById('confirmCancelBtn').onclick = ()=> close(false);
+    document.getElementById('confirmOkBtn').onclick = ()=> close(true);
+  });
+}
+
+// Simple generic row-menu (3-dot "more options") controller — one open at a time, closes on outside click.
+let openRowMenuId = null;
+function closeRowMenuOnOutsideClick(e){
+  if(!e.target.closest('.row-menu-wrap')) closeRowMenu();
+}
+function closeRowMenu(){
+  if(openRowMenuId === null) return;
+  const el = document.querySelector(`.row-menu[data-menu-for="${CSS.escape(openRowMenuId)}"]`);
+  if(el) el.style.display = 'none';
+  openRowMenuId = null;
+  document.removeEventListener('click', closeRowMenuOnOutsideClick);
+}
+function openRowMenu(id){
+  closeRowMenu();
+  const el = document.querySelector(`.row-menu[data-menu-for="${CSS.escape(id)}"]`);
+  if(!el) return;
+  el.style.display = 'block';
+  openRowMenuId = id;
+  document.addEventListener('click', closeRowMenuOnOutsideClick);
+}
+function updateNavActive(){
+  document.getElementById('navCashbooks').classList.toggle('active', route.page==='books' || route.page==='tx');
+  document.getElementById('navBizSettings').classList.toggle('active', route.page==='settings');
+}
+
+/* =========================================================
+   BUSINESS SWITCHER (top-right dropdown)
+   ========================================================= */
+let bizSearch = '';
+function setupBizSelect(){
+  document.getElementById('bizSelectLabel').textContent = currentBiz().name;
+  document.getElementById('bizSelectBtn').onclick = (e)=>{
+    e.stopPropagation();
+    const dd = document.getElementById('bizDropdown');
+    const isOpen = dd.style.display !== 'none';
+    closeBizDropdown();
+    if(!isOpen) openBizDropdown();
+  };
+}
+function openBizDropdown(){
+  bizSearch = '';
+  renderBizDropdown();
+  document.getElementById('bizDropdown').style.display = 'block';
+  positionBizDropdown();
+  document.addEventListener('click', outsideBizClick);
+  window.addEventListener('resize', positionBizDropdown);
+  window.addEventListener('scroll', positionBizDropdown, true);
+}
+function closeBizDropdown(){
+  document.getElementById('bizDropdown').style.display = 'none';
+  document.removeEventListener('click', outsideBizClick);
+  window.removeEventListener('resize', positionBizDropdown);
+  window.removeEventListener('scroll', positionBizDropdown, true);
+}
+function positionBizDropdown(){
+  const dd = document.getElementById('bizDropdown');
+  if(!dd || dd.style.display === 'none') return;
+  if(window.innerWidth <= 860){
+    // on mobile, anchor to the viewport instead of the (narrow) button
+    // so the panel never spills off the left/right edge of the screen
+    const btn = document.getElementById('bizSelectBtn');
+    const rect = btn.getBoundingClientRect();
+    dd.style.position = 'fixed';
+    dd.style.left = '16px';
+    dd.style.right = '16px';
+    dd.style.top = (rect.bottom + 8) + 'px';
+    dd.style.width = 'auto';
+    dd.style.maxWidth = 'none';
+  } else {
+    dd.style.position = '';
+    dd.style.left = '';
+    dd.style.right = '';
+    dd.style.top = '';
+    dd.style.width = '';
+    dd.style.maxWidth = '';
+  }
+}
+function outsideBizClick(e){
+  const wrap = document.getElementById('bizSelectWrap');
+  if(wrap && !wrap.contains(e.target)) closeBizDropdown();
+}
+function renderBizDropdown(){
+  const dd = document.getElementById('bizDropdown');
+  dd.innerHTML = `
+    <div class="biz-search">
+      <input id="bizSearchInput" placeholder="Search Business" value="${escapeHtml(bizSearch)}">
+      <span class="ico">🔍</span>
+    </div>
+    <div class="biz-list" id="bizListContainer"></div>
+    <button class="btn btn-primary biz-add-btn" id="addBizBtn" type="button">+ Add New Business</button>
+  `;
+  renderBizList();
+  const input = document.getElementById('bizSearchInput');
+  input.oninput = (e)=>{ bizSearch = e.target.value; renderBizList(); };
+  input.focus();
+  document.getElementById('addBizBtn').onclick = (e)=>{ e.stopPropagation(); closeBizDropdown(); openAddBusinessModal(); };
+}
+function renderBizList(){
+  const listEl = document.getElementById('bizListContainer');
+  const list = state.businesses.filter(b=> b.name.toLowerCase().includes(bizSearch.toLowerCase()));
+  listEl.innerHTML = list.length ? list.map(b=>`
+      <div class="biz-list-item ${b.id===state.currentBusinessId?'sel':''}" data-biz="${b.id}">
+        <span class="biz-radio"></span> ${escapeHtml(b.name)}
+      </div>`).join('') : `<div style="padding:10px 8px;font-size:13px;color:var(--text-dim);">No business found</div>`;
+  listEl.querySelectorAll('[data-biz]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); switchBusiness(el.getAttribute('data-biz')); closeBizDropdown(); };
+  });
+}
+async function switchBusiness(id){
+  closeBizDropdown();
+  if(id === state.currentBusinessId) return;
+  state.currentBusinessId = id;
+  await persistCurrentBiz();
+  await loadBooksForCurrentBusiness();
+  document.getElementById('bizSelectLabel').textContent = currentBiz().name;
+  route = { page:'books', bookId:null };
+  renderBooksPage();
+}
+function openAddBusinessModal(){
+  const modalRoot = document.getElementById('modalRoot');
+  modalRoot.innerHTML = `
+    <div class="overlay center" id="ov">
+      <div class="modal" style="height:auto;">
+        <div class="modal-head">
+          <h2>Add New Business</h2>
+          <button class="modal-close" id="closeModal">✕</button>
+        </div>
+        <div class="field">
+          <label>Business Name</label>
+          <input id="newBizNameInput" placeholder="e.g. My Shop">
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="saveBizBtn">Save</button>
+        </div>
+      </div>
+    </div>
+  `;
+  const removeKeyboardListener = setupKeyboardAvoidingOverlay(document.getElementById('ov'));
+  const close = ()=>{ removeKeyboardListener(); modalRoot.innerHTML = ''; };
+  document.getElementById('closeModal').onclick = close;
+  document.getElementById('ov').onclick = (e)=>{ if(e.target.id==='ov') close(); };
+  const input = document.getElementById('newBizNameInput');
+  input.focus();
+  document.getElementById('saveBizBtn').onclick = async ()=>{
+    const name = input.value.trim();
+    if(!name){ showToast('Please enter a business name'); return; }
+    const biz = { id: uid('biz'), name, address:'', staffSize:'', category:'', subcategory:'', type:'', registrationType:'', email:'', mobile:'' };
+    state.businesses.push(biz);
+    await persistBusinesses();
+    close();
+    showToast('Business added');
+    await switchBusiness(biz.id);
+  };
+  input.onkeydown = (e)=>{ if(e.key==='Enter') document.getElementById('saveBizBtn').click(); };
+}
+
+/* =========================================================
+   RENDER: BOOKS LIST PAGE
+   ========================================================= */
+let booksSearch = '';
+let booksSort = 'updated';
+
+function renderBooksPage(){
+  const topbarBackBtn = document.getElementById('topbarBackBtn');
+  if(topbarBackBtn) topbarBackBtn.style.display = 'none';
+  const view = document.getElementById('view');
+  let books = [...state.books];
+  if(booksSearch.trim()){
+    books = books.filter(b => b.name.toLowerCase().includes(booksSearch.toLowerCase()));
+  }
+  books.sort((a,b)=>{
+    if(booksSort === 'updated') return b.updatedAt - a.updatedAt;
+    if(booksSort === 'created') return b.createdAt - a.createdAt;
+    if(booksSort === 'name') return a.name.localeCompare(b.name);
+    return 0;
+  });
+
+  view.innerHTML = `
+    <div class="page-flex">
+      <div class="page-flex-top">
+        <h1 class="page-title">${escapeHtml(currentBiz().name)}</h1>
+
+        <div class="toolbar">
+          <div class="search-input">
+            <span class="ico">🔍</span>
+            <input id="bookSearchInput" placeholder="Search by book name..." value="${escapeHtml(booksSearch)}">
+          </div>
+          <select class="sort" id="bookSortSelect">
+            <option value="updated" ${booksSort==='updated'?'selected':''}>Sort By: Last Updated</option>
+            <option value="created" ${booksSort==='created'?'selected':''}>Sort By: Date Created</option>
+            <option value="name" ${booksSort==='name'?'selected':''}>Sort By: Name</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="page-flex-scroll">
+        <div class="card" id="booksCard">
+          ${books.length ? books.map(b=>{
+            const tot = bookTotals(b.id);
+            return `
+            <div class="book-row" data-book="${b.id}">
+              <div class="book-info" data-open="${b.id}">
+                <div class="book-icon">📘</div>
+                <div>
+                  <div class="book-name">${escapeHtml(b.name)}</div>
+                  <div class="book-meta">${fmtAgo(b.updatedAt)}</div>
+                </div>
+              </div>
+              <div class="book-actions">
+                <div class="book-balance" style="color:${tot.net<0?'var(--red)':'var(--text)'}">${fmtMoney(tot.net)}</div>
+                <div class="row-menu-wrap">
+                  <button class="row-menu-btn" type="button" data-menu-btn="${b.id}" title="More options">⋮</button>
+                  <div class="row-menu" data-menu-for="${b.id}" style="display:none;">
+                    <button type="button" data-rename="${b.id}">✏️ Rename</button>
+                    <button type="button" data-dup="${b.id}">📄 Duplicate</button>
+                    <button type="button" class="danger" data-del="${b.id}">🗑️ Delete Book</button>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+          }).join('') : `<div class="empty-state"><div class="big">No books found</div>Try a different search or add a new book.</div>`}
+
+          <div class="add-book-tile" id="addBookTile" style="cursor:pointer;border-top:1px solid var(--border);">
+            <div class="book-icon">➕</div>
+            <div>
+              <div class="book-name" style="font-size:14px;">Add New Book</div>
+              <div class="book-meta">Click to quickly add books for</div>
+              <div class="quick-tags">
+                <span data-quick="July Expenses">July Expenses</span>
+                <span data-quick="Payable Book">Payable Book</span>
+                <span data-quick="Staff Salary">Staff Salary</span>
+                <span data-quick="Project Book">Project Book</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-flex-bottom" style="display:flex;justify-content:flex-end;padding-top:12px;">
+        <button class="btn btn-primary" id="openAddBookBtn" style="border-radius:999px;padding:12px 22px;">+ Add new book</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('bookSearchInput').oninput = e=>{ booksSearch = e.target.value; renderBooksPage(); };
+  document.getElementById('bookSortSelect').onchange = e=>{ booksSort = e.target.value; renderBooksPage(); };
+  document.getElementById('openAddBookBtn').onclick = ()=> openAddBookModal();
+  document.getElementById('addBookTile').onclick = ()=> openAddBookModal();
+
+  document.querySelectorAll('[data-quick]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); openAddBookModal(el.getAttribute('data-quick')); };
+  });
+  document.querySelectorAll('[data-book]').forEach(el=>{
+    el.onclick = (e)=>{
+      if(e.target.closest('[data-menu-btn],.row-menu')) return;
+      goToBook(el.getAttribute('data-book'));
+    };
+  });
+  document.querySelectorAll('[data-menu-btn]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const id = el.getAttribute('data-menu-btn');
+      if(openRowMenuId === id) closeRowMenu(); else openRowMenu(id);
+    };
+  });
+  document.querySelectorAll('[data-rename]').forEach(el=>{
+    el.onclick = (e)=>{ e.stopPropagation(); closeRowMenu(); openAddBookModal(null, el.getAttribute('data-rename')); };
+  });
+  document.querySelectorAll('[data-dup]').forEach(el=>{
+    el.onclick = async (e)=>{
+      e.stopPropagation();
+      closeRowMenu();
+      const id = el.getAttribute('data-dup');
+      const b = state.books.find(x=>x.id===id);
+      const copy = { id: uid('bk'), name: b.name + ' (Copy)', createdAt: Date.now(), updatedAt: Date.now() };
+      state.books.unshift(copy);
+      state.transactions[copy.id] = JSON.parse(JSON.stringify(state.transactions[id]||[]));
+      await persistBooks(); await persistTx(copy.id);
+      showToast('Book duplicated');
+      renderBooksPage();
+    };
+  });
+  document.querySelectorAll('[data-del]').forEach(el=>{
+    el.onclick = async (e)=>{
+      e.stopPropagation();
+      closeRowMenu();
+      const id = el.getAttribute('data-del');
+      const b = state.books.find(x=>x.id===id);
+      const ok = await showConfirmDialog(`Delete "${b.name}"? This will remove all its entries.`, {title:'Delete this book?'});
+      if(ok){
+        state.books = state.books.filter(x=>x.id!==id);
+        delete state.transactions[id];
+        await persistBooks();
+        await safeDelete('tx_' + state.currentBusinessId + '_' + id);
+        showToast('Book deleted');
+        renderBooksPage();
+      }
+    };
+  });
+
+  updateNavActive();
+}
+
+function openAddBookModal(prefillName, editId){
+  const existing = editId ? state.books.find(b=>b.id===editId) : null;
+  const modalRoot = document.getElementById('modalRoot');
+  modalRoot.innerHTML = `
+    <div class="overlay center" id="ov">
+      <div class="modal" style="height:auto;">
+        <div class="modal-head">
+          <h2>${existing ? 'Rename Book' : 'Add New Book'}</h2>
+          <button class="modal-close" id="closeModal">✕</button>
+        </div>
+        <div class="field">
+          <label>Book Name</label>
+          <input id="bookNameInput" placeholder="e.g. Daily Expense" value="${escapeHtml(existing ? existing.name : (prefillName||''))}">
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="saveBookBtn">Save</button>
+        </div>
+      </div>
+    </div>
+  `;
+  const removeKeyboardListener = setupKeyboardAvoidingOverlay(document.getElementById('ov'));
+  const close = ()=>{ removeKeyboardListener(); modalRoot.innerHTML = ''; };
+  document.getElementById('closeModal').onclick = close;
+  document.getElementById('ov').onclick = (e)=>{ if(e.target.id==='ov') close(); };
+  const input = document.getElementById('bookNameInput');
+  input.focus();
+  document.getElementById('saveBookBtn').onclick = async ()=>{
+    const name = input.value.trim();
+    if(!name){ showToast('Please enter a book name'); return; }
+    if(existing){
+      existing.name = name;
+      existing.updatedAt = Date.now();
+    } else {
+      const b = { id: uid('bk'), name, createdAt: Date.now(), updatedAt: Date.now() };
+      state.books.unshift(b);
+      state.transactions[b.id] = [];
+    }
+    await persistBooks();
+    close();
+    showToast(existing ? 'Book renamed' : 'Book created');
+    renderBooksPage();
+  };
+  input.onkeydown = (e)=>{ if(e.key==='Enter') document.getElementById('saveBookBtn').click(); };
+}
+
+/* =========================================================
+   RENDER: TRANSACTIONS PAGE
+   ========================================================= */
+let txFilters = { type:'All', contact:'All', paymentMode:'All', category:'All', duration:'All Time' };
+let txSearch = '';
+let selectedTxIds = new Set();
+
+function goToBook(id){
+  route = { page:'tx', bookId: id };
+  txFilters = { type:'All', contact:'All', paymentMode:'All', category:'All', duration:'All Time' };
+  txSearch = '';
+  selectedTxIds = new Set();
+  renderTxPage();
+}
+
+function getFilteredTx(bookId){
+  let list = [...(state.transactions[bookId]||[])];
+  if(txFilters.type !== 'All') list = list.filter(t=>t.type === (txFilters.type==='Cash In'?'in':'out'));
+  if(txFilters.contact !== 'All') list = list.filter(t=> (t.contact||'—') === txFilters.contact);
+  if(txFilters.paymentMode !== 'All') list = list.filter(t=> (t.paymentMode||'—') === txFilters.paymentMode);
+  if(txFilters.category !== 'All') list = list.filter(t=> (t.category||'—') === txFilters.category);
+  if(txSearch.trim()){
+    const q = txSearch.toLowerCase();
+    list = list.filter(t => (t.remarks||'').toLowerCase().includes(q) || String(t.amount).includes(q));
+  }
+  list.sort((a,b)=> (b.date+b.time).localeCompare(a.date+a.time) || b.createdAt-a.createdAt);
+  return list;
+}
+
+function uniqueVals(bookId, field){
+  const list = state.transactions[bookId]||[];
+  return [...new Set(list.map(t=>t[field]).filter(Boolean))];
+}
+
+// Running balance: cumulative total across ALL entries for the book, in
+// chronological order, independent of any filters currently applied.
+function computeRunningBalances(bookId){
+  const all = [...(state.transactions[bookId]||[])];
+  all.sort((a,b)=> (a.date+a.time).localeCompare(b.date+b.time) || (a.createdAt||0)-(b.createdAt||0));
+  let bal = 0;
+  const map = {};
+  for(const t of all){
+    bal += (t.type==='in' ? Number(t.amount)||0 : -(Number(t.amount)||0));
+    map[t.id] = bal;
+  }
+  return map;
+}
+
+function fmtTxDate(dateStr){
+  if(!dateStr) return '—';
+  const d = new Date(dateStr + 'T00:00:00');
+  if(isNaN(d)) return dateStr;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const yest = new Date(today); yest.setDate(yest.getDate()-1);
+  d.setHours(0,0,0,0);
+  if(d.getTime()===today.getTime()) return 'Today';
+  if(d.getTime()===yest.getTime()) return 'Yesterday';
+  return d.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
+}
+function fmtTxTime(timeStr){
+  if(!timeStr) return '';
+  const parts = timeStr.split(':');
+  const h = Number(parts[0]), m = Number(parts[1]);
+  if(isNaN(h)||isNaN(m)) return timeStr;
+  const ampm = h>=12 ? 'PM' : 'AM';
+  let hh = h % 12; if(hh===0) hh = 12;
+  return `${String(hh).padStart(2,'0')}:${String(m).padStart(2,'0')} ${ampm}`;
+}
+
+function renderTxPage(){
+  const topbarBackBtn = document.getElementById('topbarBackBtn');
+  if(topbarBackBtn) topbarBackBtn.style.display = 'none';
+  const view = document.getElementById('view');
+  const book = state.books.find(b=>b.id===route.bookId);
+  if(!book){ route.page='books'; renderBooksPage(); return; }
+
+  const list = getFilteredTx(book.id);
+  const tot = bookTotals(book.id);
+  const balMap = computeRunningBalances(book.id);
+
+  const categoryOptions = [...new Set([...DEFAULT_CATEGORIES, ...state.customCategories, ...uniqueVals(book.id,'category')])];
+  const modeOptions = [...new Set([...DEFAULT_MODES, ...uniqueVals(book.id,'paymentMode')])];
+
+  selectedTxIds = new Set([...selectedTxIds].filter(id => list.some(t=>t.id===id)));
+  const selMode = selectedTxIds.size > 0;
+
+  view.innerHTML = `
+    <div class="page-flex">
+      <div class="page-flex-top">
+        <div class="tx-header">
+          ${selMode ? `
+            <div class="tx-title">
+              <button class="back-btn" id="cancelSelectBtn">✕</button>
+              ${selectedTxIds.size} selected
+            </div>
+            <div class="tx-sel-actions">
+              <button class="icon-btn" id="selDeleteBtn" title="Delete">🗑️</button>
+              <button class="icon-btn" id="selTransferBtn" title="Transfer to another book">±</button>
+              <button class="icon-btn" id="selCopyBtn" title="Copy">📄</button>
+              <button class="icon-btn" id="selShareBtn" title="Share">➜</button>
+              <div class="row-menu-wrap">
+                <button class="row-menu-btn" type="button" data-menu-btn="sel-more" title="More">⋮</button>
+                <div class="row-menu" data-menu-for="sel-more" style="display:none;right:0;">
+                  <button type="button" id="selAllBtn">☑️ Select All</button>
+                  <button type="button" id="selClearBtn">Clear Selection</button>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="tx-title">
+              <button class="back-btn" id="backBtn">←</button>
+              ${escapeHtml(book.name)}
+            </div>
+          `}
+        </div>
+
+        <div class="summary-bar">
+          <div class="summary-card in"><div class="label">Total Cash In</div><div class="val">${fmtMoney(tot.inSum)}</div></div>
+          <div class="summary-card out"><div class="label">Total Cash Out</div><div class="val">${fmtMoney(tot.outSum)}</div></div>
+          <div class="summary-card net"><div class="label">Net Balance</div><div class="val">${fmtMoney(tot.net)}</div></div>
+        </div>
+
+        <button type="button" class="view-reports-link" id="viewReportsBtn">View Reports <span>›</span></button>
+
+        <div class="filters">
+          <select id="fDuration"><option>All Time</option><option>Today</option><option>This Week</option><option>This Month</option></select>
+          <select id="fType"><option>All</option><option>Cash In</option><option>Cash Out</option></select>
+          <select id="fPaymentMode"><option value="All">Payment Modes: All</option>${modeOptions.map(m=>`<option value="${escapeHtml(m)}" ${txFilters.paymentMode===m?'selected':''}>${escapeHtml(m)}</option>`).join('')}</select>
+          <select id="fCategoryFilter"><option value="All">Categories: All</option>${categoryOptions.map(c=>`<option value="${escapeHtml(c)}" ${txFilters.category===c?'selected':''}>${escapeHtml(c)}</option>`).join('')}</select>
+        </div>
+
+        <div class="tx-toolbar">
+          <div class="search-input" style="max-width:320px;">
+            <span class="ico">🔍</span>
+            <input id="txSearchInput" placeholder="Search by remark or amount..." value="${escapeHtml(txSearch)}">
+          </div>
+        </div>
+      </div>
+
+      <div class="page-flex-scroll tx-scroll-pad">
+        <div class="card tx-table-wrap">
+          ${list.length ? `
+          <table class="tx-table">
+            <thead>
+              <tr>
+                <th class="col-select"></th>
+                <th>Date &amp; Time</th>
+                <th>Details</th>
+                <th>Category</th>
+                <th>Mode</th>
+                <th>Bill</th>
+                <th class="col-amount">Amount</th>
+                <th class="col-balance">Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${list.map(t=>`
+                <tr data-tx-row="${t.id}" class="${selectedTxIds.has(t.id)?'tx-row-selected':''}">
+                  <td class="col-select">
+                    <span class="tx-select-mark ${selectedTxIds.has(t.id)?'checked':''}" data-select-mark="${t.id}">${selectedTxIds.has(t.id)?'✓':''}</span>
+                  </td>
+                  <td>
+                    <div class="tx-date-main">${fmtTxDate(t.date)}</div>
+                    <div class="tx-date-sub">${fmtTxTime(t.time)}</div>
+                  </td>
+                  <td class="col-details">
+                    <div class="tx-remark">${escapeHtml(t.remarks || (t.contact ? t.contact : (t.type==='in'?'Cash In':'Cash Out')))}</div>
+                    ${t.contact ? `<div class="tx-meta">${escapeHtml(t.contact)}</div>` : ''}
+                  </td>
+                  <td>${t.category ? `<span class="tx-pill">${escapeHtml(t.category)}</span>` : '<span class="tx-no-bill">--</span>'}</td>
+                  <td>${t.paymentMode ? escapeHtml(t.paymentMode) : '<span class="tx-no-bill">--</span>'}</td>
+                  <td>${t.bill ? `<button type="button" class="tx-bill-btn" data-view-bill="${t.id}">📎 1 Attachment</button>` : '<span class="tx-no-bill">--</span>'}</td>
+                  <td class="col-amount"><span class="tx-amount ${t.type}">${t.type==='in'?'+':'-'}${fmtMoney(t.amount)}</span></td>
+                  <td class="col-balance">${fmtMoney(balMap[t.id])}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+          ` : `
+            <div class="empty-state">
+              <div class="big">No entries added Yet!</div>
+              ⓘ Use Cash In or Cash Out to add entries
+            </div>
+          `}
+        </div>
+
+        <div class="tx-card-list">
+          ${list.map(t=>`
+            <div class="tx-card ${selectedTxIds.has(t.id)?'tx-row-selected':''}" data-tx-row="${t.id}">
+              ${selMode ? `<span class="tx-select-mark tx-card-select-mark ${selectedTxIds.has(t.id)?'checked':''}" data-select-mark="${t.id}">${selectedTxIds.has(t.id)?'✓':''}</span>` : ''}
+              <div class="tx-card-top">
+                <div class="tx-card-tags">
+                  ${t.category ? `<span class="tx-pill">${escapeHtml(t.category)}</span>` : ''}
+                  ${t.paymentMode ? `<span class="tx-pill tx-pill-mode">${escapeHtml(t.paymentMode)}</span>` : ''}
+                </div>
+                <div class="tx-card-amount-wrap">
+                  <div class="tx-amount ${t.type}">${t.type==='in'?'+':'-'}${fmtMoney(t.amount)}</div>
+                  <div class="tx-card-balance">Balance: ${fmtMoney(balMap[t.id])}</div>
+                </div>
+              </div>
+              <div class="tx-card-remark">${escapeHtml(t.remarks || (t.contact ? t.contact : (t.type==='in'?'Cash In':'Cash Out')))}</div>
+              <button type="button" class="tx-card-more" data-more-toggle="${t.id}">More Fields »</button>
+              <div class="tx-card-more-fields" id="moreFields-${t.id}" style="display:none;">
+                <div class="row"><span>Date &amp; Time</span><span>${fmtTxDate(t.date)}, ${fmtTxTime(t.time)}</span></div>
+                ${t.contact ? `<div class="row"><span>Contact</span><span>${escapeHtml(t.contact)}</span></div>` : ''}
+                ${t.bill ? `<div class="row"><span>Bill</span><span><button type="button" class="tx-bill-btn" data-view-bill="${t.id}">📎 1 Attachment</button></span></div>` : ''}
+              </div>
+              <div class="tx-card-divider"></div>
+              <div class="tx-card-footer">
+                <div><span class="entry-by">Entry by You</span> at ${fmtTxTime(t.time)}</div>
+              </div>
+            </div>
+          `).join('') || `
+            <div class="empty-state">
+              <div class="big">No entries added Yet!</div>
+              ⓘ Use Cash In or Cash Out to add entries
+            </div>
+          `}
+        </div>
+      </div>
+
+      <div class="page-flex-bottom tx-fixed-actions">
+        <button class="btn btn-green" id="cashInBtn">+ Cash In</button>
+        <button class="btn btn-red" id="cashOutBtn">− Cash Out</button>
+      </div>
+    </div>
+  `;
+
+  const backBtnEl = document.getElementById('backBtn');
+  if(backBtnEl) backBtnEl.onclick = ()=>{ route.page='books'; renderBooksPage(); };
+  const cancelSelectBtnEl = document.getElementById('cancelSelectBtn');
+  if(cancelSelectBtnEl) cancelSelectBtnEl.onclick = ()=>{ selectedTxIds = new Set(); renderTxPage(); };
+  document.getElementById('cashInBtn').onclick = ()=> openTxModal('in', book.id);
+  document.getElementById('cashOutBtn').onclick = ()=> openTxModal('out', book.id);
+  document.getElementById('txSearchInput').oninput = e=>{ txSearch = e.target.value; renderTxPage(); };
+  document.getElementById('fType').value = txFilters.type;
+  document.getElementById('fType').onchange = e=>{ txFilters.type = e.target.value; renderTxPage(); };
+  document.getElementById('fDuration').value = txFilters.duration;
+  document.getElementById('fDuration').onchange = e=>{ txFilters.duration = e.target.value; renderTxPage(); };
+  document.getElementById('fPaymentMode').onchange = e=>{ txFilters.paymentMode = e.target.value; renderTxPage(); };
+  document.getElementById('fCategoryFilter').onchange = e=>{ txFilters.category = e.target.value; renderTxPage(); };
+
+  document.querySelectorAll('[data-view-bill]').forEach(el=>{
+    el.onclick = ()=>{
+      const t = state.transactions[book.id].find(x=>x.id===el.getAttribute('data-view-bill'));
+      if(t && t.bill) openBillViewer(t.bill);
+    };
+  });
+  document.querySelectorAll('[data-edit-tx]').forEach(el=>{
+    el.onclick = ()=>{
+      const t = state.transactions[book.id].find(x=>x.id===el.getAttribute('data-edit-tx'));
+      openTxModal(t.type, book.id, t);
+    };
+  });
+  document.querySelectorAll('[data-del-tx]').forEach(el=>{
+    el.onclick = async ()=>{
+      const id = el.getAttribute('data-del-tx');
+      const ok = await showConfirmDialog('Delete this entry?', {title:'Delete this entry?'});
+      if(ok){
+        state.transactions[book.id] = state.transactions[book.id].filter(x=>x.id!==id);
+        book.updatedAt = Date.now();
+        await persistTx(book.id); await persistBooks();
+        showToast('Entry deleted');
+        renderTxPage();
+      }
+    };
+  });
+
+  document.getElementById('viewReportsBtn').onclick = ()=> openReportOptionsModal(book);
+
+  // Tap anywhere on a row/card to open that entry. Long-press (or click-and-hold) enters multi-select mode;
+  // once active, tapping elsewhere on a row toggles its selection instead of opening it.
+  document.querySelectorAll('[data-tx-row]').forEach(row=>{
+    const id = row.getAttribute('data-tx-row');
+    let pressTimer = null;
+    const startPress = (e)=>{
+      if(e.target.closest('[data-edit-tx],[data-del-tx],[data-view-bill],[data-select-mark],[data-more-toggle]')) return;
+      pressTimer = setTimeout(()=>{
+        pressTimer = null;
+        selectedTxIds.add(id);
+        renderTxPage();
+      }, 500);
+    };
+    const cancelPress = ()=>{ if(pressTimer){ clearTimeout(pressTimer); pressTimer = null; } };
+    row.addEventListener('mousedown', startPress);
+    row.addEventListener('touchstart', startPress, {passive:true});
+    row.addEventListener('mouseup', cancelPress);
+    row.addEventListener('mouseleave', cancelPress);
+    row.addEventListener('touchend', cancelPress);
+    row.addEventListener('touchmove', cancelPress);
+    row.addEventListener('click', (e)=>{
+      if(e.target.closest('[data-edit-tx],[data-del-tx],[data-view-bill],[data-select-mark],[data-more-toggle]')) return;
+      if(selMode){
+        if(selectedTxIds.has(id)) selectedTxIds.delete(id); else selectedTxIds.add(id);
+        renderTxPage();
+      } else {
+        const t = state.transactions[book.id].find(x=>x.id===id);
+        if(t) openTxModal(t.type, book.id, t);
+      }
+    });
+  });
+  document.querySelectorAll('[data-select-mark]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const id = el.getAttribute('data-select-mark');
+      if(selectedTxIds.has(id)) selectedTxIds.delete(id); else selectedTxIds.add(id);
+      renderTxPage();
+    };
+  });
+  document.querySelectorAll('[data-more-toggle]').forEach(el=>{
+    el.onclick = (e)=>{
+      e.stopPropagation();
+      const id = el.getAttribute('data-more-toggle');
+      const panel = document.getElementById('moreFields-'+id);
+      if(panel) panel.style.display = panel.style.display === 'none' ? '' : 'none';
+    };
+  });
+
+
+  if(selMode){
+    document.getElementById('selDeleteBtn').onclick = async ()=>{
+      const ok = await showConfirmDialog(`Delete ${selectedTxIds.size} selected ${selectedTxIds.size===1?'entry':'entries'}?`, {title:'Delete selected entries?'});
+      if(!ok) return;
+      state.transactions[book.id] = state.transactions[book.id].filter(x=>!selectedTxIds.has(x.id));
+      book.updatedAt = Date.now();
+      await persistTx(book.id); await persistBooks();
+      showToast('Entries deleted');
+      selectedTxIds = new Set();
+      renderTxPage();
+    };
+    document.getElementById('selCopyBtn').onclick = async ()=>{
+      const toCopy = state.transactions[book.id].filter(x=>selectedTxIds.has(x.id));
+      const copies = toCopy.map(t=>({...t, id: uid('tx'), createdAt: Date.now()}));
+      state.transactions[book.id].unshift(...copies);
+      book.updatedAt = Date.now();
+      await persistTx(book.id); await persistBooks();
+      showToast('Entries copied');
+      selectedTxIds = new Set();
+      renderTxPage();
+    };
+    document.getElementById('selTransferBtn').onclick = ()=> openTransferModal(book);
+    document.getElementById('selShareBtn').onclick = ()=> shareSelectedEntries(book);
+    document.querySelectorAll('[data-menu-btn]').forEach(el=>{
+      el.onclick = (e)=>{
+        e.stopPropagation();
+        const id = el.getAttribute('data-menu-btn');
+        if(openRowMenuId === id) closeRowMenu(); else openRowMenu(id);
+      };
+    });
+    document.getElementById('selAllBtn').onclick = ()=>{
+      closeRowMenu();
+      list.forEach(t=>selectedTxIds.add(t.id));
+      renderTxPage();
+    };
+    document.getElementById('selClearBtn').onclick = ()=>{
+      closeRowMenu();
+      selectedTxIds = new Set();
+      renderTxPage();
+    };
+  }
+
+  updateNavActive();
+}
+
+async function openTransferModal(book){
+  const otherBooks = state.books.filter(b=>b.id!==book.id);
+  const modalRoot = document.getElementById('modalRoot');
+  modalRoot.innerHTML = `
+    <div class="overlay center" id="ov">
+      <div class="modal" style="height:auto;">
+        <div class="modal-head">
+          <h2>Transfer ${selectedTxIds.size} ${selectedTxIds.size===1?'Entry':'Entries'}</h2>
+          <button class="modal-close" id="closeModal">✕</button>
+        </div>
+        ${otherBooks.length ? `
+          <p style="font-size:13px;color:var(--text-dim);margin:0 0 12px;">Choose the book to move the selected entries into.</p>
+          <div class="row-menu" style="position:static;box-shadow:none;border:1px solid var(--border);">
+            ${otherBooks.map(b=>`<button type="button" data-target-book="${b.id}">📘 ${escapeHtml(b.name)}</button>`).join('')}
+          </div>
+        ` : `<p style="font-size:13px;color:var(--text-dim);">No other books to transfer into — create another book first.</p>`}
+      </div>
+    </div>
+  `;
+  const close = ()=> modalRoot.innerHTML = '';
+  document.getElementById('closeModal').onclick = close;
+  document.getElementById('ov').onclick = (e)=>{ if(e.target.id==='ov') close(); };
+  document.querySelectorAll('[data-target-book]').forEach(el=>{
+    el.onclick = async ()=>{
+      const targetId = el.getAttribute('data-target-book');
+      const moving = state.transactions[book.id].filter(x=>selectedTxIds.has(x.id));
+      state.transactions[book.id] = state.transactions[book.id].filter(x=>!selectedTxIds.has(x.id));
+      state.transactions[targetId] = state.transactions[targetId] || [];
+      state.transactions[targetId].unshift(...moving);
+      book.updatedAt = Date.now();
+      const targetBook = state.books.find(b=>b.id===targetId);
+      if(targetBook) targetBook.updatedAt = Date.now();
+      await persistTx(book.id); await persistTx(targetId); await persistBooks();
+      showToast('Entries transferred');
+      selectedTxIds = new Set();
+      close();
+      renderTxPage();
+    };
+  });
+}
+
+async function shareSelectedEntries(book){
+  const list = state.transactions[book.id].filter(x=>selectedTxIds.has(x.id));
+  const lines = list.map(t=>`${fmtTxDate(t.date)} ${fmtTxTime(t.time)} — ${t.type==='in'?'+':'-'}${fmtMoney(t.amount)}${t.remarks ? ' (' + t.remarks + ')' : ''}`);
+  const text = `${book.name} — ${list.length} ${list.length===1?'entry':'entries'}\n\n` + lines.join('\n');
+  if(navigator.share){
+    try{ await navigator.share({title: book.name, text}); return; }catch(e){ /* user cancelled or unsupported, fall through */ }
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    try{ await navigator.clipboard.writeText(text); showToast('Copied to clipboard'); return; }catch(e){}
+  }
+  showToast('Sharing is not supported on this device');
+}
+
+/* =========================================================
+   REPORTS (Generate Excel / Generate PDF for a book)
+   ========================================================= */
+function buildReportData(book){
+  const list = getFilteredTx(book.id); // respects current filters/search, same as what's on screen
+  const sorted = [...list].sort((a,b)=>{
+    const da = (a.date||'') + 'T' + (a.time||'00:00');
+    const db = (b.date||'') + 'T' + (b.time||'00:00');
+    return da.localeCompare(db) || (a.createdAt||0)-(b.createdAt||0);
+  });
+  let running = 0;
+  const rows = sorted.map(t=>{
+    running += t.type==='in' ? Number(t.amount) : -Number(t.amount);
+    return { date: fmtTxDate(t.date), mode: t.paymentMode || '—', in: t.type==='in'?t.amount:null, out: t.type==='out'?t.amount:null, balance: running };
+  });
+  const inSum = sorted.filter(t=>t.type==='in').reduce((s,t)=>s+Number(t.amount),0);
+  const outSum = sorted.filter(t=>t.type==='out').reduce((s,t)=>s+Number(t.amount),0);
+  const dates = sorted.map(t=>t.date).filter(Boolean).sort();
+  const duration = dates.length ? `${fmtTxDate(dates[0])} - ${fmtTxDate(dates[dates.length-1])}` : '—';
+  return { rows, inSum, outSum, net: inSum-outSum, count: sorted.length, duration };
+}
+
+function openReportOptionsModal(book){
+  const modalRoot = document.getElementById('modalRoot');
+  modalRoot.innerHTML = `
+    <div class="overlay center" id="ov">
+      <div class="modal" style="height:auto;text-align:center;padding:26px;">
+        <div class="modal-head" style="justify-content:center;position:relative;">
+          <h2>Download Report</h2>
+          <button class="modal-close" id="closeModal" style="position:absolute;right:0;">✕</button>
+        </div>
+        <p style="font-size:13px;color:var(--text-dim);margin:0 0 16px;">${escapeHtml(book.name)} — choose a format</p>
+        <div style="display:flex;gap:12px;">
+          <button class="btn btn-outline" id="genExcelBtn" style="flex:1;padding:14px 0;">📊 Generate Excel</button>
+          <button class="btn btn-primary" id="genPdfBtn" style="flex:1;padding:14px 0;">📄 Generate PDF</button>
+        </div>
+      </div>
+    </div>
+  `;
+  const close = ()=> modalRoot.innerHTML = '';
+  document.getElementById('closeModal').onclick = close;
+  document.getElementById('ov').onclick = (e)=>{ if(e.target.id==='ov') close(); };
+  document.getElementById('genExcelBtn').onclick = ()=>{ generateExcelReport(book); close(); };
+  document.getElementById('genPdfBtn').onclick = async ()=>{
+    const btn = document.getElementById('genPdfBtn');
+    btn.textContent = 'Generating…'; btn.disabled = true;
+    try{ await generatePDFReport(book); }
+    catch(e){ showToast('Could not generate PDF — check your internet connection'); }
+    close();
+  };
+}
+
+function reportHtml(book, data){
+  const now = new Date();
+  const generatedOn = now.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'}) + ', ' +
+    now.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit', hour12:true}).toLowerCase();
+  return `
+    <div style="font-family:Arial,Helvetica,sans-serif;color:#1a1c22;width:760px;background:#fff;">
+      <div style="display:flex;align-items:center;gap:14px;background:#eef1fe;padding:20px 24px;">
+        <div style="width:44px;height:44px;border-radius:10px;background:#3f5cf2;display:flex;align-items:center;justify-content:center;font-size:20px;">🏢</div>
+        <div>
+          <div style="font-size:17px;font-weight:700;">${escapeHtml(currentBiz().name)} Report</div>
+          <div style="font-size:12px;color:#666;">Generated On - ${generatedOn}</div>
+        </div>
+      </div>
+      <div style="padding:20px 24px;">
+        <div style="font-size:16px;font-weight:700;margin-bottom:12px;">${escapeHtml(book.name)}</div>
+        <div style="border:1px solid #e2e4ea;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:13px;">
+          <b>Duration:</b> ${escapeHtml(data.duration)}
+        </div>
+        <div style="display:flex;gap:14px;margin-bottom:18px;">
+          <div style="flex:1;border:1px solid #e2e4ea;border-radius:8px;padding:12px 14px;">
+            <div style="font-size:11px;color:#888;">Total Cash in</div>
+            <div style="font-size:18px;font-weight:700;color:#1b9c5b;">${fmtMoney(data.inSum)}</div>
+          </div>
+          <div style="flex:1;border:1px solid #e2e4ea;border-radius:8px;padding:12px 14px;">
+            <div style="font-size:11px;color:#888;">Total Cash out</div>
+            <div style="font-size:18px;font-weight:700;color:#e0433d;">${fmtMoney(data.outSum)}</div>
+          </div>
+          <div style="flex:1;border:1px solid #e2e4ea;border-radius:8px;padding:12px 14px;">
+            <div style="font-size:11px;color:#888;">Final Balance</div>
+            <div style="font-size:18px;font-weight:700;">${fmtMoney(data.net)}</div>
+          </div>
+        </div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Total No. of entries: ${data.count}</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+          <thead>
+            <tr style="background:#eef1fe;">
+              <th style="text-align:left;padding:9px 10px;border:1px solid #e2e4ea;">Date</th>
+              <th style="text-align:left;padding:9px 10px;border:1px solid #e2e4ea;">Mode</th>
+              <th style="text-align:left;padding:9px 10px;border:1px solid #e2e4ea;">Cash in</th>
+              <th style="text-align:left;padding:9px 10px;border:1px solid #e2e4ea;">Cash out</th>
+              <th style="text-align:left;padding:9px 10px;border:1px solid #e2e4ea;">Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.rows.map(r=>`
+              <tr>
+                <td style="padding:8px 10px;border:1px solid #e2e4ea;">${escapeHtml(r.date)}</td>
+                <td style="padding:8px 10px;border:1px solid #e2e4ea;">${escapeHtml(r.mode)}</td>
+                <td style="padding:8px 10px;border:1px solid #e2e4ea;color:#1b9c5b;">${r.in!=null ? fmtMoney(r.in) : ''}</td>
+                <td style="padding:8px 10px;border:1px solid #e2e4ea;color:#e0433d;">${r.out!=null ? fmtMoney(r.out) : ''}</td>
+                <td style="padding:8px 10px;border:1px solid #e2e4ea;">${fmtMoney(r.balance)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:24px;font-size:12px;color:#888;">
+          <div style="width:22px;height:22px;border-radius:5px;background:#3f5cf2;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;">E</div>
+          Generated by EasyBusy
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function generateExcelReport(book){
+  const data = buildReportData(book);
+  const rowsHtml = data.rows.map(r=>`
+    <tr>
+      <td>${escapeHtml(r.date)}</td>
+      <td>${escapeHtml(r.mode)}</td>
+      <td>${r.in!=null ? r.in : ''}</td>
+      <td>${r.out!=null ? r.out : ''}</td>
+      <td>${r.balance}</td>
+    </tr>
+  `).join('');
+  const html = `
+    <html><head><meta charset="UTF-8"></head><body>
+      <table border="1">
+        <tr><td colspan="5"><b>${escapeHtml(currentBiz().name)} Report — ${escapeHtml(book.name)}</b></td></tr>
+        <tr><td colspan="5">Duration: ${escapeHtml(data.duration)}</td></tr>
+        <tr><td>Total Cash In</td><td>${data.inSum}</td><td>Total Cash Out</td><td>${data.outSum}</td><td>Final Balance: ${data.net}</td></tr>
+        <tr><td></td></tr>
+        <tr><th>Date</th><th>Mode</th><th>Cash In</th><th>Cash Out</th><th>Balance</th></tr>
+        ${rowsHtml}
+      </table>
+    </body></html>
+  `;
+  const blob = new Blob([html], {type:'application/vnd.ms-excel'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${book.name.replace(/[^a-z0-9]+/gi,'_')}-report.xls`;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  showToast('Excel report downloaded');
+}
+
+let reportLibsLoaded = false;
+function loadScriptOnce(src){
+  return new Promise((resolve, reject)=>{
+    if(document.querySelector(`script[src="${src}"]`)){ resolve(); return; }
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = ()=>resolve();
+    s.onerror = ()=>reject(new Error('Failed to load ' + src));
+    document.head.appendChild(s);
+  });
+}
+
+async function generatePDFReport(book){
+  const data = buildReportData(book);
+  if(!reportLibsLoaded){
+    await loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+    await loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+    reportLibsLoaded = true;
+  }
+  const container = document.createElement('div');
+  container.style.cssText = 'position:fixed;left:-9999px;top:0;';
+  container.innerHTML = reportHtml(book, data);
+  document.body.appendChild(container);
+  try{
+    const canvas = await html2canvas(container.firstElementChild, {scale:2, backgroundColor:'#ffffff'});
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'pt', 'a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const imgWidth = pageWidth;
+    const imgHeight = canvas.height * (imgWidth / canvas.width);
+    let heightLeft = imgHeight;
+    let position = 0;
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+    while(heightLeft > 0){
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+    pdf.save(`${book.name.replace(/[^a-z0-9]+/gi,'_')}-report.pdf`);
+    showToast('PDF report downloaded');
+  } finally {
+    document.body.removeChild(container);
+  }
+}
+
+
+
+function openTxModal(type, bookId, editEntry){
+  const modalRoot = document.getElementById('modalRoot');
+  const now = new Date();
+  const defDate = editEntry ? editEntry.date : now.toISOString().slice(0,10);
+  const defTime = editEntry ? editEntry.time : now.toTimeString().slice(0,5);
+
+  function getCatOptionsForType(t){
+    const base = t==='in' ? CASH_IN_CATEGORIES : CASH_OUT_CATEGORIES;
+    return [...base, ...state.customCategories.filter(c=>!base.includes(c))];
+  }
+  let catOptions = getCatOptionsForType(type);
+  const modeOptions = DEFAULT_MODES;
+
+  modalRoot.innerHTML = `
+    <div class="overlay" id="ov">
+      <div class="modal tx-modal">
+        <div class="modal-head ${type}">
+          <h2>${editEntry? 'Edit' : 'Add'} Cash ${type==='in'?'In':'Out'} Entry</h2>
+          <button class="modal-close" id="closeModal">✕</button>
+        </div>
+
+        <div class="tx-scroll">
+          <div class="type-toggle">
+            <button id="toggleIn" class="${type==='in'?'sel-in':''}">Cash In</button>
+            <button id="toggleOut" class="${type==='out'?'sel-out':''}">Cash Out</button>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label>Date <span class="req">*</span></label>
+              <input type="date" id="fDate" value="${defDate}">
+            </div>
+            <div class="field">
+              <label>Time</label>
+              <input type="time" id="fTime" value="${defTime}">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Amount <span class="req">*</span></label>
+            <input type="number" inputmode="numeric" pattern="[0-9]*" min="0" step="1" autocomplete="off" id="fAmount" placeholder="Enter amount" value="${editEntry? editEntry.amount : ''}">
+          </div>
+
+          <div id="extraFields" style="display:${editEntry ? '' : 'none'};">
+            <div class="field">
+              <label>Description</label>
+              <input id="fRemarks" placeholder="e.g. Enter Details (Name, Bill No, Item Name, Quantity etc)" value="${editEntry? escapeHtml(editEntry.remarks||'') : ''}">
+            </div>
+
+            <div class="field">
+              <label>Contact</label>
+              <input id="fContact" placeholder="Search or Select" value="${editEntry? escapeHtml(editEntry.contact||'') : ''}">
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label>Category</label>
+                <div style="display:flex;gap:6px;">
+                  <input list="catList" id="fCategory" placeholder="Search or Select" style="flex:1;" value="${editEntry? escapeHtml(editEntry.category||'') : ''}">
+                  <datalist id="catList">${catOptions.map(c=>`<option value="${c}">`).join('')}</datalist>
+                </div>
+                <button type="button" id="addCatBtn" style="background:none;border:none;color:var(--blue);font-weight:600;font-size:12px;padding:6px 0 0;cursor:pointer;">+ Add New Category</button>
+              </div>
+              <div class="field">
+                <label>Payment Mode</label>
+                <input list="modeList" id="fMode" placeholder="Search or Select" value="${editEntry? escapeHtml(editEntry.paymentMode||'') : ''}">
+                <datalist id="modeList">${modeOptions.map(m=>`<option value="${m}">`).join('')}</datalist>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Bill / Receipt (optional)</label>
+              <input type="file" id="fBill" accept="image/*,.pdf">
+              <div id="billPreview" style="font-size:12px;color:var(--text-dim);margin-top:6px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          ${editEntry ? `<button class="btn btn-red" id="deleteTxBtn">Delete</button>` : ''}
+          <button class="btn btn-outline" id="saveAddNewBtn">Save &amp; Add New</button>
+          <button class="btn btn-primary" id="saveBtn">Save</button>
+        </div>
+
+      </div>
+    </div>
+  `;
+
+  let curType = type;
+  let billData = editEntry && editEntry.bill ? {...editEntry.bill} : null;
+
+  // Keep Save / Save & Add New visible above the on-screen keyboard instead of
+  // being pushed off-screen behind it when a field (Amount, Remarks, etc.) is focused.
+  const ovEl = document.getElementById('ov');
+  let removeKeyboardListener = ()=>{};
+  if(window.visualViewport){
+    const vv = window.visualViewport;
+    const adjustForKeyboard = ()=>{
+      ovEl.style.height = vv.height + 'px';
+      ovEl.style.top = vv.offsetTop + 'px';
+    };
+    vv.addEventListener('resize', adjustForKeyboard);
+    vv.addEventListener('scroll', adjustForKeyboard);
+    adjustForKeyboard();
+    removeKeyboardListener = ()=>{
+      vv.removeEventListener('resize', adjustForKeyboard);
+      vv.removeEventListener('scroll', adjustForKeyboard);
+    };
+  }
+
+  const close = ()=>{ removeKeyboardListener(); modalRoot.innerHTML=''; };
+  document.getElementById('closeModal').onclick = close;
+  document.getElementById('ov').onclick = (e)=>{ if(e.target.id==='ov') close(); };
+  document.getElementById('toggleIn').onclick = ()=>{ curType='in'; refreshToggle(); };
+  document.getElementById('toggleOut').onclick = ()=>{ curType='out'; refreshToggle(); };
+
+  // Progressive disclosure: Contact/Remarks/Category/Payment/Bill only appear once an amount is entered.
+  const amountEl = document.getElementById('fAmount');
+  const extraFieldsEl = document.getElementById('extraFields');
+  function updateExtraFieldsVisibility(){
+    const hasAmount = amountEl.value.trim().length > 0;
+    const wasHidden = extraFieldsEl.style.display === 'none';
+    extraFieldsEl.style.display = hasAmount ? '' : 'none';
+    if(hasAmount && wasHidden) extraFieldsEl.classList.add('extra-fields-enter');
+  }
+  amountEl.addEventListener('input', ()=>{
+    // Amount is digits only; strip any non-numeric characters.
+    const clean = amountEl.value.replace(/\D/g, '');
+    if(amountEl.value !== clean) amountEl.value = clean;
+    updateExtraFieldsVisibility();
+  });
+  amountEl.addEventListener('keydown', (e)=>{
+    // Keep the native mobile numeric keyboard, but prevent letters, signs,
+    // exponent notation and other non-digit characters on physical keyboards.
+    if(e.ctrlKey || e.metaKey || e.altKey) return;
+    const allowed = ['Backspace','Delete','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End','Tab','Enter'];
+    if(allowed.includes(e.key)) return;
+    if(!/^[0-9]$/.test(e.key)) e.preventDefault();
+  });
+  amountEl.addEventListener('paste', (e)=>{
+    e.preventDefault();
+    const text = (e.clipboardData || window.clipboardData).getData('text');
+    const clean = text.replace(/\D/g, '');
+    const start = amountEl.selectionStart ?? amountEl.value.length;
+    const end = amountEl.selectionEnd ?? amountEl.value.length;
+    amountEl.value = amountEl.value.slice(0,start) + clean + amountEl.value.slice(end);
+    amountEl.dispatchEvent(new Event('input',{bubbles:true}));
+  });
+  updateExtraFieldsVisibility();
+
+  document.getElementById('addCatBtn').onclick = async ()=>{
+    const name = prompt('New category name');
+    if(!name || !name.trim()) return;
+    const clean = name.trim();
+    if(!catOptions.includes(clean)){
+      state.customCategories.push(clean);
+      await persistCustomCategories();
+    }
+    const catField = document.getElementById('fCategory');
+    catField.value = clean;
+    const dl = document.getElementById('catList');
+    if(![...dl.options].some(o=>o.value===clean)){
+      dl.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(clean)}">`);
+    }
+    catField.focus();
+  };
+  function refreshToggle(){
+    document.getElementById('toggleIn').className = curType==='in'?'sel-in':'';
+    document.getElementById('toggleOut').className = curType==='out'?'sel-out':'';
+    document.querySelector('.modal-head').className = 'modal-head ' + curType;
+    document.querySelector('.modal-head h2').textContent = (editEntry?'Edit':'Add') + ' Cash ' + (curType==='in'?'In':'Out') + ' Entry';
+    catOptions = getCatOptionsForType(curType);
+    const dl = document.getElementById('catList');
+    dl.innerHTML = catOptions.map(c=>`<option value="${escapeHtml(c)}">`).join('');
+    const catField = document.getElementById('fCategory');
+    if(!catOptions.includes(catField.value.trim())) catField.value = '';
+  }
+
+  function renderBillPreview(){
+    const el = document.getElementById('billPreview');
+    if(billData){
+      const isImage = billData.dataUrl && billData.dataUrl.startsWith('data:image');
+      el.innerHTML = `
+        <div style="display:flex;align-items:center;gap:8px;">
+          ${isImage ? `<img src="${billData.dataUrl}" alt="" style="width:36px;height:36px;object-fit:cover;border-radius:6px;border:1px solid var(--border);">` : `<span style="font-size:18px;">📄</span>`}
+          <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(billData.name)}</span>
+          <button type="button" id="viewBillBtn" style="background:none;border:none;color:var(--blue);cursor:pointer;font-size:12px;font-weight:600;text-decoration:underline;">View</button>
+          <button type="button" id="removeBillBtn" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:12px;text-decoration:underline;">Remove</button>
+        </div>`;
+      document.getElementById('viewBillBtn').onclick = ()=> openBillViewer(billData);
+      document.getElementById('removeBillBtn').onclick = ()=>{ billData = null; document.getElementById('fBill').value=''; renderBillPreview(); };
+    } else {
+      el.textContent = '';
+    }
+  }
+  renderBillPreview();
+  document.getElementById('fBill').onchange = (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    if(file.size > 3*1024*1024){ showToast('Bill file too large (max 3MB)'); e.target.value=''; return; }
+    const reader = new FileReader();
+    reader.onload = ()=>{ billData = { name: file.name, dataUrl: reader.result }; renderBillPreview(); };
+    reader.readAsDataURL(file);
+  };
+
+  function readForm(){
+    const dateV = document.getElementById('fDate').value;
+    const timeV = document.getElementById('fTime').value;
+    const rawAmount = document.getElementById('fAmount').value.trim();
+    const amount = /^[0-9]+$/.test(rawAmount) ? Number(rawAmount) : NaN;
+    return {
+      date: dateV, time: timeV, amount,
+      contact: document.getElementById('fContact').value.trim(),
+      remarks: document.getElementById('fRemarks').value.trim(),
+      category: document.getElementById('fCategory').value.trim(),
+      paymentMode: document.getElementById('fMode').value.trim(),
+      bill: billData
+    };
+  }
+
+  async function save(andAddNew){
+    const data = readForm();
+    if(!data.date){ showToast('Please select a date'); return; }
+    if(!data.amount || isNaN(data.amount) || data.amount<=0){ showToast('Please enter a valid amount'); return; }
+    const book = state.books.find(b=>b.id===bookId);
+
+    if(editEntry){
+      Object.assign(editEntry, data, {type: curType});
+    } else {
+      const entry = { id: uid('tx'), type: curType, createdAt: Date.now(), ...data };
+      state.transactions[bookId].unshift(entry);
+    }
+    book.updatedAt = Date.now();
+    await persistTx(bookId);
+    await persistBooks();
+    showToast('Entry saved');
+    if(andAddNew && !editEntry){
+      renderTxPage();
+      openTxModal(curType, bookId);
+    } else {
+      close();
+      renderTxPage();
+    }
+  }
+
+  document.getElementById('saveBtn').onclick = ()=> save(false);
+  document.getElementById('saveAddNewBtn').onclick = ()=> save(true);
+
+  if(editEntry){
+    document.getElementById('deleteTxBtn').onclick = async ()=>{
+      const ok = await showConfirmDialog('Delete this entry?', {title:'Delete this entry?'});
+      if(ok){
+        const book = state.books.find(b=>b.id===bookId);
+        state.transactions[bookId] = state.transactions[bookId].filter(x=>x.id!==editEntry.id);
+        book.updatedAt = Date.now();
+        await persistTx(bookId);
+        await persistBooks();
+        showToast('Entry deleted');
+        close();
+        renderTxPage();
+      }
+    };
+  }
+}
+
+/* =========================================================
+   RENDER: BUSINESS SETTINGS PAGE
+   ========================================================= */
+let settingsTab = 'profile';
+
+function renderSettingsPage(){
+  const view = document.getElementById('view');
+  view.innerHTML = `
+    <h1 class="page-title">Business Settings</h1>
+    <div class="settings-layout">
+      <div class="settings-subnav">
+        <div class="settings-subnav-item ${settingsTab==='profile'?'active':''}" data-tab="profile">
+          <div class="subnav-title">Business Profile</div>
+          <div class="subnav-sub">Edit business details</div>
+        </div>
+        <div class="settings-subnav-item ${settingsTab==='account'?'active':''}" data-tab="account">
+          <div class="subnav-title">Settings</div>
+          <div class="subnav-sub">Change Primary Admin or delete business</div>
+        </div>
+      </div>
+      <div class="settings-content" id="settingsContent"></div>
+    </div>
+  `;
+  document.querySelectorAll('.settings-subnav-item').forEach(el=>{
+    el.onclick = ()=>{ settingsTab = el.getAttribute('data-tab'); renderSettingsPage(); };
+  });
+  const topbarBackBtn = document.getElementById('topbarBackBtn');
+  topbarBackBtn.style.display = 'inline-flex';
+  topbarBackBtn.onclick = ()=>{ route = { page:'books', bookId:null }; renderBooksPage(); };
+  if(settingsTab==='profile') renderProfileTab(); else renderAccountTab();
+  updateNavActive();
+}
+
+function textField(icon, label, key, biz, placeholder){
+  return `
+    <div class="settings-field">
+      <div class="settings-field-icon">${icon}</div>
+      <div class="settings-field-body">
+        <label>${label}</label>
+        <div class="settings-field-input-wrap">
+          <input type="text" id="field_${key}" value="${escapeHtml(biz[key]||'')}" placeholder="${placeholder}" disabled>
+          <button class="icon-btn" data-edit-field="${key}" title="Edit">✏️</button>
+        </div>
+      </div>
+    </div>`;
+}
+function selectField(icon, label, key, biz, options, placeholder){
+  const val = biz[key]||'';
+  return `
+    <div class="settings-field">
+      <div class="settings-field-icon">${icon}</div>
+      <div class="settings-field-body">
+        <label>${label}</label>
+        <select data-select-field="${key}">
+          <option value="" ${val===''?'selected':''}>${placeholder}</option>
+          ${options.map(o=>`<option value="${escapeHtml(o)}" ${val===o?'selected':''}>${escapeHtml(o)}</option>`).join('')}
+        </select>
+      </div>
+    </div>`;
+}
+
+function renderProfileTab(){
+  const biz = currentBiz();
+  const content = document.getElementById('settingsContent');
+  const fieldDefs = ['name','address','staffSize','category','subcategory','type','registrationType','email','mobile'];
+  const filled = fieldDefs.filter(k => (biz[k]||'').toString().trim() !== '').length;
+  const total = fieldDefs.length;
+  const pct = Math.round((filled/total)*100);
+  const strengthLabel = pct < 40 ? 'Low' : pct < 75 ? 'Medium' : 'High';
+  const strengthClass = pct < 40 ? '' : pct < 75 ? 'med' : 'high';
+  const incomplete = total - filled;
+
+  content.innerHTML = `
+    <div class="profile-card">
+      <div class="profile-card-head">
+        <div class="book-icon">🏢</div>
+        <div>
+          <div class="profile-title">${escapeHtml(biz.name)}</div>
+          ${incomplete>0? `<div class="profile-warn">⚠ Incomplete business profile</div>` : ''}
+        </div>
+      </div>
+      <div class="strength-row"><span>Profile Strength: ${strengthLabel}</span><span>${pct}%</span></div>
+      <div class="strength-bar"><div class="strength-bar-fill ${strengthClass}" style="width:${pct}%"></div></div>
+      ${incomplete>0? `<div class="incomplete-banner">ℹ️ ${incomplete} out of ${total} fields are incomplete. Fill these to complete your profile</div>` : ''}
+    </div>
+
+    <div class="settings-section">
+      <h4>Basics</h4>
+      ${textField('🏢','Business Name','name', biz, 'Business name')}
+      ${textField('📍','Business Address','address', biz, 'Add business address')}
+      ${selectField('👥','Staff Size','staffSize', biz, ['1-5','6-10','11-25','26-50','50+'], 'Select staff size')}
+    </div>
+
+    <div class="settings-section">
+      <h4>Business Info</h4>
+      ${selectField('◇','Business Category','category', biz, ['Retail','Services','Manufacturing','Wholesale','Other'], 'Select business category')}
+      ${selectField('→','Business Subcategory','subcategory', biz, ['General','Specialty','Online','Other'], 'Select business subcategory')}
+      ${selectField('▭','Business Type','type', biz, ['Sole Proprietorship','Partnership','Private Limited','LLP'], 'Select business type')}
+      ${selectField('👤','Business Registration Type','registrationType', biz, ['GST Registered','Unregistered','Other'], 'Select registration type')}
+    </div>
+
+    <div class="settings-section">
+      <h4>Communication</h4>
+      ${textField('✉️','Business Email','email', biz, 'Enter business email')}
+      ${textField('📞','Business Mobile Number','mobile', biz, 'Enter business mobile number')}
+    </div>
+  `;
+
+  content.querySelectorAll('[data-edit-field]').forEach(btn=>{
+    btn.onclick = ()=> toggleFieldEdit(btn.getAttribute('data-edit-field'));
+  });
+  content.querySelectorAll('[data-select-field]').forEach(sel=>{
+    sel.onchange = async (e)=>{
+      const key = sel.getAttribute('data-select-field');
+      biz[key] = e.target.value;
+      await persistBusinesses();
+      renderProfileTab();
+    };
+  });
+}
+
+async function toggleFieldEdit(key){
+  const input = document.getElementById('field_' + key);
+  const btn = document.querySelector(`[data-edit-field="${key}"]`);
+  if(input.disabled){
+    input.disabled = false;
+    input.focus();
+    btn.textContent = '✔️';
+    return;
+  }
+  const biz = currentBiz();
+  const val = input.value.trim();
+  if(key === 'name' && !val){ showToast('Business name cannot be empty'); input.focus(); return; }
+  biz[key] = val;
+  await persistBusinesses();
+  if(key === 'name'){
+    document.getElementById('bizSelectLabel').textContent = biz.name;
+  }
+  showToast('Saved');
+  renderProfileTab();
+}
+
+function renderAccountTab(){
+  const content = document.getElementById('settingsContent');
+  const canDelete = state.businesses.length > 1;
+  content.innerHTML = `
+    <div class="settings-section">
+      <h4>Primary Admin</h4>
+      <p style="font-size:13px;color:var(--text-dim);margin:0;">You are the primary admin of this business.</p>
+    </div>
+    <div class="settings-section">
+      <h4>Backup &amp; Restore</h4>
+      <p style="font-size:13px;color:var(--text-dim);margin:0 0 12px;">Your data is saved only in this browser. Export a backup file to keep it safe or move it to another computer, and Import it there to bring everything back.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-backup btn-export" id="exportDataBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export Backup</button>
+        <button class="btn btn-backup btn-import" id="importDataBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Import Backup</button>
+      </div>
+      <input type="file" id="importFileInput" accept=".json,application/json" style="display:none;">
+    </div>
+    <div class="danger-zone">
+      <h4>Delete Business</h4>
+      <p>${canDelete ? 'Permanently delete this business and all its books and entries.' : 'You need at least one other business before you can delete this one.'}</p>
+      <button class="btn btn-red" id="deleteBizBtn" ${canDelete?'':'disabled'}>Delete Business</button>
+    </div>
+  `;
+  document.getElementById('exportDataBtn').onclick = exportAllData;
+  const importInput = document.getElementById('importFileInput');
+  document.getElementById('importDataBtn').onclick = ()=> importInput.click();
+  importInput.onchange = (e)=>{
+    const file = e.target.files[0];
+    if(file) importAllData(file);
+    importInput.value = '';
+  };
+  const btn = document.getElementById('deleteBizBtn');
+  if(canDelete){
+    btn.onclick = async ()=>{
+      const biz = currentBiz();
+      const ok = await showConfirmDialog(`Delete "${biz.name}"? This will remove all its books and entries.`, {title:'Delete this business?'});
+      if(!ok) return;
+      const idx = state.businesses.findIndex(b=>b.id===biz.id);
+      const bookIds = state.books.map(b=>b.id);
+      state.businesses.splice(idx,1);
+      await persistBusinesses();
+      await safeDelete('books_list_' + biz.id);
+      for(const bookId of bookIds){ await safeDelete('tx_' + biz.id + '_' + bookId); }
+      showToast('Business deleted');
+      await switchBusiness(state.businesses[0].id);
+    };
+  }
+}
+
+/* =========================================================
+   BACKUP / RESTORE (export all data to a .json file, and
+   restore it back in — works on any device/browser)
+   ========================================================= */
+async function buildBackupPayload(){
+  const payload = {
+    app: 'EasyBusy',
+    exportedAt: new Date().toISOString(),
+    businesses: state.businesses,
+    currentBusinessId: state.currentBusinessId,
+    customCategories: state.customCategories,
+    books: {},       // businessId -> books[]
+    transactions: {} // businessId -> { bookId -> tx[] }
+  };
+  for(const biz of state.businesses){
+    const books = (await safeGet('books_list_' + biz.id)) || [];
+    payload.books[biz.id] = books;
+    payload.transactions[biz.id] = {};
+    for(const bk of books){
+      payload.transactions[biz.id][bk.id] = (await safeGet('tx_' + biz.id + '_' + bk.id)) || [];
+    }
+  }
+  return payload;
+}
+
+async function exportAllData(){
+  const payload = await buildBackupPayload();
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const stamp = new Date().toISOString().slice(0,10);
+  const suggestedName = `EasyBusy-backup-${stamp}.json`;
+
+  // Chrome/Edge (and other supporting browsers): show a real Save As/location picker.
+  if(window.showSaveFilePicker){
+    try{
+      const handle = await window.showSaveFilePicker({
+        suggestedName,
+        types: [{description:'EasyBusy Backup', accept:{'application/json':['.json']}}]
+      });
+      const writable = await handle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      showToast('Backup saved');
+      return;
+    }catch(e){
+      if(e && e.name === 'AbortError') return;
+      showToast('Could not open save location');
+      return;
+    }
+  }
+
+  // Fallback for browsers that do not support the Save As API.
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = suggestedName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showToast('Backup downloaded');
+}
+
+async function importAllData(file){
+  let data;
+  try{
+    const text = await file.text();
+    data = JSON.parse(text);
+  }catch(e){
+    showToast('Invalid backup file');
+    return;
+  }
+  if(!data || !Array.isArray(data.businesses)){
+    showToast('This file is not a valid EasyBusy backup');
+    return;
+  }
+  const ok = await showConfirmDialog('Importing will replace all current data in this browser with the backup. Continue?', {title:'Replace current data?', confirmText:'Import'});
+  if(!ok) return;
+
+  await safeSet(STORE_KEYS.businesses, data.businesses);
+  await safeSet(STORE_KEYS.currentBiz, data.currentBusinessId || (data.businesses[0] && data.businesses[0].id));
+  await safeSet('custom_categories', data.customCategories || []);
+
+  for(const bizId of Object.keys(data.books || {})){
+    await safeSet('books_list_' + bizId, data.books[bizId] || []);
+    const txByBook = (data.transactions && data.transactions[bizId]) || {};
+    for(const bookId of Object.keys(txByBook)){
+      await safeSet('tx_' + bizId + '_' + bookId, txByBook[bookId] || []);
+    }
+  }
+
+  showToast('Backup restored');
+  await loadAll();
+  setupBizSelect();
+  route = { page:'books', bookId:null };
+  renderBooksPage();
+}
+
+/* =========================================================
+   MOBILE SIDEBAR (hamburger toggle drawer)
+   ========================================================= */
+function setupMobileSidebar(){
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const toggleBtn = document.getElementById('menuToggleBtn');
+  const closeBtn = document.getElementById('sidebarCloseBtn');
+
+  function openSidebar(){
+    sidebar.classList.add('open');
+    overlay.classList.add('show');
+  }
+  function closeSidebar(){
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+
+  toggleBtn.onclick = ()=>{
+    if(sidebar.classList.contains('open')) closeSidebar(); else openSidebar();
+  };
+  overlay.onclick = closeSidebar;
+  if(closeBtn) closeBtn.onclick = closeSidebar;
+
+  // close the drawer whenever a nav link is used on mobile
+  document.getElementById('navCashbooks').addEventListener('click', closeSidebar);
+  document.getElementById('navBizSettings').addEventListener('click', closeSidebar);
+
+  // if the window is resized back to desktop width, make sure the drawer state is reset
+  window.addEventListener('resize', ()=>{
+    if(window.innerWidth > 860) closeSidebar();
+  });
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+async function init(){
+  await loadAll();
+  setupBizSelect();
+  setupSupportBtn();
+
+  // Sidebar backup shortcuts (same working backup functions as Settings)
+  const sidebarExportBtn = document.getElementById('sidebarExportBtn');
+  if(sidebarExportBtn) sidebarExportBtn.onclick = exportAllData;
+
+  const sidebarImportBtn = document.getElementById('sidebarImportBtn');
+  const sidebarImportInput = document.getElementById('sidebarImportFileInput');
+  if(sidebarImportBtn && sidebarImportInput){
+    sidebarImportBtn.onclick = ()=> sidebarImportInput.click();
+    sidebarImportInput.onchange = (e)=>{
+      const file = e.target.files[0];
+      if(file) importAllData(file);
+      e.target.value = '';
+    };
+  }
+
+  setupMobileSidebar();
+  document.getElementById('navCashbooks').onclick = ()=>{ route = { page:'books', bookId:null }; renderBooksPage(); };
+  document.getElementById('navBizSettings').onclick = ()=>{ route = { page:'settings' }; renderSettingsPage(); };
+  renderBooksPage();
+}
+init();
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+    });
+
+    // When a new service worker takes over (i.e. you deployed an update),
+    // reload the page once so the user sees the new version automatically —
+    // no need to delete the app or clear browser data.
+    let swRefreshed = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (swRefreshed) return;
+      swRefreshed = true;
+      window.location.reload();
+    });
+  }
+</script>
+</body>
+</html>
