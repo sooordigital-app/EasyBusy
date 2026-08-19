@@ -81,6 +81,10 @@
   .lock-card .btn{width:100%;justify-content:center;margin-top:4px;}
   .lock-fingerprint-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px;margin-top:10px;border:1px solid var(--border);border-radius:var(--radius);background:#fff;color:var(--blue);font-weight:700;font-size:13.5px;cursor:pointer;}
   .lock-fingerprint-btn:hover{background:var(--blue-light);}
+  .lock-fingerprint-icon-btn{width:64px;height:64px;border-radius:50%;border:2px solid var(--blue);background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;cursor:pointer;transition:background .15s,opacity .15s;}
+  .lock-fingerprint-icon-btn svg{width:30px;height:30px;}
+  .lock-fingerprint-icon-btn:hover{background:#dfe4fd;}
+  .lock-fingerprint-icon-btn.checking{opacity:.55;cursor:wait;}
 
   /* ---- QR Sync ---- */
   .sidebar-qr-btn{color:#7a4fd6;}
@@ -308,6 +312,7 @@
   .incomplete-banner{display:flex;gap:10px;align-items:flex-start;background:var(--blue-light);color:#33406b;border-radius:6px;padding:10px 12px;font-size:13px;margin-top:14px;}
   .settings-section{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;}
   .settings-section h4{font-size:14px;margin:0 0 14px;border-bottom:1px solid var(--border);padding-bottom:10px;}
+  .settings-section h4 svg, .security-status svg{vertical-align:-4px;margin-right:5px;}
   .settings-field{display:flex;gap:12px;margin-bottom:16px;}
   .settings-field:last-child{margin-bottom:0;}
   .settings-field-icon{width:20px;color:var(--text-dim);padding-top:26px;text-align:center;flex-shrink:0;}
@@ -14780,6 +14785,7 @@ async function sha256Hex(str){
 }
 
 const WEBAUTHN_SUPPORTED = !!(window.PublicKeyCredential && navigator.credentials);
+const FINGERPRINT_ICON_SVG = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 4.2 2 6.2 2 10.5"/><path d="M12 2a8 8 0 0 1 8 8c0 2-.4 3.6-.9 5"/><path d="M8 4.6A7.4 7.4 0 0 0 4.5 11c0 4.1 1.6 6.1 1.6 9.4"/><path d="M16 4.6A7.4 7.4 0 0 1 19.5 11c0 1.6-.3 2.7-.7 3.7"/><path d="M9 8.2a4 4 0 0 1 7 2.5c0 3-1.4 4-1.4 7.6"/><path d="M9 8.2c-1 1-1.5 2-1.5 3.5 0 3 1.5 5 1.5 8.6"/><path d="M12.2 10.4a2.3 2.3 0 0 1 2.3 2.3c0 3-1.2 4-1.2 7"/></svg>';
 
 async function registerBiometric(){
   if(!WEBAUTHN_SUPPORTED){ showToast('Fingerprint/Face unlock is not supported on this device or browser'); return false; }
@@ -14849,7 +14855,7 @@ function renderSecurityTab(){
         ${enabled? `<div style="margin-top:14px;"><button class="btn btn-outline" id="changePasswordBtn">Change Password</button></div>` : ''}
       </div>
       <div class="settings-section">
-        <h4>Fingerprint / Face Unlock</h4>
+        <h4>${FINGERPRINT_ICON_SVG} Fingerprint / Face Unlock</h4>
         <div class="toggle-row">
           <div class="toggle-row-text">
             <div class="toggle-title">Unlock with fingerprint or face</div>
@@ -14860,7 +14866,7 @@ function renderSecurityTab(){
             <span class="switch-slider"></span>
           </label>
         </div>
-        <span class="security-status ${bioEnabled?'on':'off'}">${bioEnabled?'👆 Fingerprint unlock is ON':'👆 Fingerprint unlock is OFF'}</span>
+        <span class="security-status ${bioEnabled?'on':'off'}">${FINGERPRINT_ICON_SVG} Fingerprint unlock is ${bioEnabled?'ON':'OFF'}</span>
       </div>
     `;
     document.getElementById('appLockToggle').onchange = (e)=>{
@@ -14978,19 +14984,23 @@ function ensureUnlocked(){
     root.innerHTML = `
       <div class="lock-screen">
         <div class="lock-card">
+          ${bioEnabled ? `
+          <button type="button" class="lock-fingerprint-icon-btn" id="unlockFingerprintBtn" aria-label="Unlock with fingerprint">${FINGERPRINT_ICON_SVG}</button>
+          <h2>EasyBusy Locked</h2>
+          <p>Tap the thumbprint, or enter your password</p>
+          ` : `
           <div class="lock-icon">🔒</div>
           <h2>EasyBusy Locked</h2>
           <p>Enter your password to continue</p>
+          `}
           <input type="password" id="unlockPwInput" placeholder="Password">
           <div class="lock-error" id="unlockError"></div>
           <button class="btn btn-primary" id="unlockBtn">Unlock</button>
-          ${bioEnabled? `<button type="button" class="lock-fingerprint-btn" id="unlockFingerprintBtn">👆 Unlock with Fingerprint</button>` : ''}
         </div>
       </div>
     `;
     document.body.appendChild(root);
     const input = document.getElementById('unlockPwInput');
-    input.focus();
     const tryUnlock = async ()=>{
       const storedHash = await safeGet('app_lock_password_hash');
       const val = input.value;
@@ -15006,12 +15016,20 @@ function ensureUnlocked(){
     input.onkeydown = (e)=>{ if(e.key==='Enter') tryUnlock(); };
     const bioBtn = document.getElementById('unlockFingerprintBtn');
     if(bioBtn){
-      bioBtn.onclick = async ()=>{
-        bioBtn.textContent = 'Checking...';
+      const tryBiometric = async (silent)=>{
+        bioBtn.classList.add('checking');
         const ok = await verifyBiometric();
+        bioBtn.classList.remove('checking');
         if(ok){ root.remove(); resolve(); }
-        else{ bioBtn.textContent = '👆 Unlock with Fingerprint'; document.getElementById('unlockError').textContent = 'Fingerprint not recognized'; }
+        else if(!silent){ document.getElementById('unlockError').textContent = 'Fingerprint not recognized'; }
       };
+      bioBtn.onclick = ()=> tryBiometric(false);
+      // Show the thumbprint prompt right away, without requiring an extra tap first,
+      // on devices/browsers that allow it. Failures here stay silent — the icon
+      // remains tappable and the password field is always available as a fallback.
+      tryBiometric(true);
+    }else{
+      input.focus();
     }
   });
 }
