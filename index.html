@@ -58,6 +58,8 @@
   :root[data-theme="dark"] .settings-subnav-item,
   :root[data-theme="dark"] .tx-table-wrap,
   :root[data-theme="dark"] .book-summary-card,
+  :root[data-theme="dark"] .row-menu,
+  :root[data-theme="dark"] .lock-card,
   :root[data-theme="dark"] .menu-toggle,
   :root[data-theme="dark"] .theme-toggle-btn,
   :root[data-theme="dark"] .sidebar-collapse-btn,
@@ -309,7 +311,7 @@
   .tx-select-mark{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);color:#fff;font-size:12px;cursor:pointer;}
   .tx-select-mark.checked{background:var(--blue);border-color:var(--blue);}
   tr.tx-row-selected{background:var(--blue-light,#eef1fe);}
-  .view-reports-link{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:#fff;border:none;border-radius:0 0 var(--radius) var(--radius);padding:14px;color:var(--blue);font-weight:700;font-size:14px;cursor:pointer;}
+  .view-reports-link{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:var(--card);border:none;border-radius:0 0 var(--radius) var(--radius);padding:14px;color:var(--blue);font-weight:700;font-size:14px;cursor:pointer;}
   .back-btn{background:none;border:none;font-size:22px;font-weight:900;color:var(--text);padding:6px;border-radius:6px;line-height:1;}
   .back-btn:hover{background:#eceefb;}
 
@@ -317,7 +319,7 @@
   .filters select{border:1px solid var(--border);background:#fff;border-radius:var(--radius);padding:8px 10px;font-size:13px;}
 
   /* ---- Book summary panel (Net Balance / Total In / Total Out / View Reports stacked card) ---- */
-  .summary-panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;}
+  .summary-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;}
   .summary-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border);}
   .summary-row .s-label{font-size:15px;font-weight:600;color:var(--text);}
   .summary-row .s-val{font-size:20px;font-weight:700;}
@@ -370,7 +372,7 @@
 
   /* ---- Mobile transaction cards (replaces the scrollable table on small screens) ---- */
   .tx-card-list{display:none;flex-direction:column;gap:10px;padding-top:6px;}
-  .tx-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;position:relative;transition:border-color .15s,background .15s;}
+  .tx-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;position:relative;transition:border-color .15s,background .15s;}
   .tx-card.tx-row-selected{border-color:var(--blue);background:var(--blue-light);}
   .tx-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
   .tx-card-tags{display:flex;flex-wrap:wrap;gap:6px;padding-right:6px;}
@@ -386,7 +388,7 @@
   .tx-card-footer{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--text-dim);}
   .tx-card-footer .entry-by{color:var(--blue);font-weight:600;}
   .tx-card-actions{display:flex;gap:6px;flex-shrink:0;}
-  .tx-card-select-mark{position:absolute;top:-8px;left:-8px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.18);}
+  .tx-card-select-mark{position:absolute;top:-8px;left:-8px;background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.18);}
 
   @media (max-width:760px){
     .tx-table-wrap{display:none;}
@@ -396,14 +398,14 @@
   /* ---- Business Settings page ---- */
   .settings-layout{display:flex;gap:20px;align-items:flex-start;}
   .settings-subnav{width:220px;flex-shrink:0;}
-  .settings-subnav-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:10px;cursor:pointer;}
+  .settings-subnav-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:10px;cursor:pointer;}
   .settings-subnav-item:hover{border-color:#c7cdf5;}
   .settings-subnav-item.active{border-color:var(--blue);background:var(--blue-light);}
   .settings-subnav-item .subnav-title{font-weight:600;font-size:14px;color:var(--text);}
   .settings-subnav-item.active .subnav-title{color:var(--blue);}
   .settings-subnav-item .subnav-sub{font-size:12px;color:var(--text-dim);margin-top:2px;}
   .settings-content{flex:1;min-width:0;}
-  .profile-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:18px;}
+  .profile-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:18px;}
   .profile-card-head{display:flex;align-items:center;gap:12px;}
   .profile-card-head .book-icon{width:40px;height:40px;font-size:18px;}
   .profile-title{font-weight:700;font-size:16px;}
@@ -414,7 +416,7 @@
   .strength-bar-fill.med{background:var(--amber);}
   .strength-bar-fill.high{background:var(--green);}
   .incomplete-banner{display:flex;gap:10px;align-items:flex-start;background:var(--blue-light);color:#33406b;border-radius:6px;padding:10px 12px;font-size:13px;margin-top:14px;}
-  .settings-section{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;}
+  .settings-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;}
   .settings-section h4{font-size:14px;margin:0 0 14px;border-bottom:1px solid var(--border);padding-bottom:10px;}
   .settings-section h4 svg, .security-status svg{vertical-align:-4px;margin-right:5px;}
   .settings-field{display:flex;gap:12px;margin-bottom:16px;}
