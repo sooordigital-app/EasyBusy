@@ -107,8 +107,7 @@
   .sidebar.collapsed .logo-text,
   .sidebar.collapsed .nav-section,
   .sidebar.collapsed .nav-item .lbl,
-  .sidebar.collapsed .sidebar-action-btn .lbl,
-  .sidebar.collapsed .sidebar-backup-path-link{display:none;}
+  .sidebar.collapsed .sidebar-action-btn .lbl{display:none;}
   .sidebar.collapsed .nav-item{justify-content:center;}
   .sidebar.collapsed .sidebar-action-btn{padding-left:0;padding-right:0;}
   @media (max-width:860px){ .sidebar-collapse-btn{display:none;} }
@@ -122,8 +121,7 @@
   .sidebar-backup-path-link{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim);padding:0 8px;text-decoration:none;cursor:pointer;}
   .sidebar-backup-path-link:hover{color:var(--blue);}
   .sidebar-backup-path-link .lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .settings-backup-path-link{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--blue);cursor:pointer;margin-top:8px;background:none;border:none;padding:0;font-weight:600;}
-  .settings-backup-path-link:hover{text-decoration:underline;}
+  .settings-backup-path-text{font-size:12.5px;color:var(--text-dim);margin:8px 0 0;}
 
   /* ---- Transaction filter icon (consolidated) ---- */
   .tx-search-filter-row{display:flex;align-items:center;gap:10px;}
@@ -504,9 +502,6 @@
     <div class="nav-item" id="navBizSettings" title="Business settings"><span class="ico">⚙️</span><span class="lbl">Business settings</span></div>
 
           <div class="sidebar-footer">
-       <a href="#" class="sidebar-backup-path-link" id="sidebarBackupPathLink" style="display:none;" title="Click to see the auto backup folder location">
-         <span class="ico">📁</span><span class="lbl" id="sidebarBackupPathText"></span>
-       </a>
        <button class="sidebar-action-btn sidebar-backup-btn" id="sidebarExportBtn" type="button" title="Select folder for auto backup">
          <span id="autoBackupIcon">⇩</span> <span class="lbl" id="autoBackupLabel">Select folder for auto backup</span>
        </button>
@@ -14027,7 +14022,7 @@ function renderTxPage(){
               </div>
               <div class="tx-card-divider"></div>
               <div class="tx-card-footer">
-                <div><span class="entry-by">Entry by You</span> at ${fmtTxTime(t.time)}</div>
+                <div class="tx-card-time">${fmtTxTime(t.time)}</div>
               </div>
             </div>
           `).join('') || `
@@ -14886,9 +14881,7 @@ function renderAccountTab(){
         <button class="btn btn-backup btn-import" id="importDataBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Import Backup</button>
       </div>
       <input type="file" id="importFileInput" accept=".json,application/json" style="display:none;">
-      <div>
-        <button type="button" class="settings-backup-path-link" id="settingsBackupPathLink">📁 Auto backup folder location</button>
-      </div>
+      <p class="settings-backup-path-text" id="settingsBackupPathText"></p>
     </div>
     <div class="danger-zone">
       <h4>Delete Business</h4>
@@ -15692,27 +15685,12 @@ function setupSidebarCollapse(){
 }
 
 /* =========================================================
-   AUTO BACKUP FOLDER LOCATION LINK (sidebar + settings)
+   AUTO BACKUP FOLDER NAME (settings info text)
    ========================================================= */
-function showBackupFolderInfo(name){
-  if(!name){ showToast('No auto backup folder selected yet'); return; }
-  showToast(`Backups are saved to the folder "${name}" (browsers only expose the folder name, not its full path, for privacy/security)`);
-}
 function updateBackupPathLink(name){
-  const link = document.getElementById('sidebarBackupPathLink');
-  const text = document.getElementById('sidebarBackupPathText');
-  if(link && text){
-    if(name){
-      text.textContent = name;
-      link.style.display = 'flex';
-      link.onclick = (e)=>{ e.preventDefault(); showBackupFolderInfo(name); };
-    }else{
-      link.style.display = 'none';
-    }
-  }
-  const settingsLink = document.getElementById('settingsBackupPathLink');
-  if(settingsLink){
-    settingsLink.onclick = (e)=>{ e.preventDefault(); showBackupFolderInfo(name); };
+  const settingsText = document.getElementById('settingsBackupPathText');
+  if(settingsText){
+    settingsText.textContent = name ? `Your backup is saved in this folder: "${name}"` : 'No auto backup folder selected yet.';
   }
 }
 
@@ -15744,6 +15722,10 @@ function setupMobileSidebar(){
   document.getElementById('navCashbooks').addEventListener('click', closeSidebar);
   document.getElementById('navAllSummary').addEventListener('click', closeSidebar);
   document.getElementById('navBizSettings').addEventListener('click', closeSidebar);
+  const qrBtnEl = document.getElementById('sidebarQrSyncBtn');
+  if(qrBtnEl) qrBtnEl.addEventListener('click', closeSidebar);
+  const supportBtnEl = document.getElementById('supportBtn');
+  if(supportBtnEl) supportBtnEl.addEventListener('click', closeSidebar);
 
   // if the window is resized back to desktop width, make sure the drawer state is reset
   window.addEventListener('resize', ()=>{
