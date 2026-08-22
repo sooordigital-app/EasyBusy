@@ -177,8 +177,9 @@
   .qr-tab{flex:1;text-align:center;padding:9px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-weight:700;cursor:pointer;color:var(--text-dim);background:#fff;}
   .qr-tab.active{color:var(--blue);border-color:var(--blue);background:var(--blue-light);}
   .qr-panel{text-align:center;}
-  .qr-share-actions{display:flex;gap:10px;justify-content:center;margin-top:14px;}
+  .qr-share-actions{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
   .qr-share-actions .btn{flex:0 0 auto;min-width:110px;}
+  .qr-frame-counter{font-size:12px;font-weight:700;color:var(--blue);margin:8px 0 0;}
   .qr-panel img, .qr-panel canvas{max-width:220px;width:100%;height:auto;margin:0 auto;display:block;border:1px solid var(--border);border-radius:8px;background:#fff;padding:8px;}
   .qr-note{font-size:12px;color:var(--text-dim);margin-top:10px;line-height:1.5;}
   .qr-scan-wrap{position:relative;width:100%;max-width:280px;margin:0 auto;border-radius:10px;overflow:hidden;background:#000;}
@@ -311,20 +312,6 @@
   .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
   .filters select{border:1px solid var(--border);background:#fff;border-radius:var(--radius);padding:8px 10px;font-size:13px;}
 
-  .balance-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;}
-  .balance-row{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;}
-  .balance-row + .balance-row{border-top:1px solid var(--border);}
-  .balance-row .label{font-size:16px;font-weight:600;color:var(--text);}
-  .balance-row .val{font-size:22px;font-weight:800;color:var(--text);}
-  .balance-row.net{padding:18px;}
-  .balance-row.net .label{font-size:17px;font-weight:700;}
-  .balance-row.net .val{font-size:24px;}
-  .balance-row.inout .label,.balance-row.inout .val{font-size:16px;font-weight:600;}
-  .balance-row.inout.in .val{color:var(--green);font-weight:700;}
-  .balance-row.inout.out .val{color:var(--red);font-weight:700;}
-  .balance-card .view-reports-link{border:none;border-top:1px solid var(--border);border-radius:0;margin-bottom:0;}
-
-  /* legacy 3-card summary bar (kept for other pages) */
   .summary-bar{display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
   .summary-card{flex:1;min-width:150px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;}
   .summary-card .label{font-size:12px;color:var(--text-dim);margin-bottom:6px;}
@@ -13927,12 +13914,13 @@ function renderTxPage(){
           `}
         </div>
 
-        <div class="balance-card">
-          <div class="balance-row net"><div class="label">Net Balance</div><div class="val">${fmtMoney(tot.net)}</div></div>
-          <div class="balance-row inout in"><div class="label">Total In (+)</div><div class="val">${fmtMoney(tot.inSum)}</div></div>
-          <div class="balance-row inout out"><div class="label">Total Out (-)</div><div class="val">${fmtMoney(tot.outSum)}</div></div>
-          <button type="button" class="view-reports-link" id="viewReportsBtn">View Reports <span>›</span></button>
+        <div class="summary-bar">
+          <div class="summary-card in"><div class="label">Total Cash In</div><div class="val">${fmtMoney(tot.inSum)}</div></div>
+          <div class="summary-card out"><div class="label">Total Cash Out</div><div class="val">${fmtMoney(tot.outSum)}</div></div>
+          <div class="summary-card net"><div class="label">Net Balance</div><div class="val">${fmtMoney(tot.net)}</div></div>
         </div>
+
+        <button type="button" class="view-reports-link" id="viewReportsBtn">View Reports <span>›</span></button>
 
         <div class="tx-toolbar">
           <div class="tx-search-filter-row" style="flex:1;">
@@ -14734,7 +14722,7 @@ function renderSettingsPage(){
         </div>
         <div class="settings-subnav-item ${settingsTab==='account'?'active':''}" data-tab="account">
           <div class="subnav-title">Settings</div>
-          <div class="subnav-sub">Appearance, backup &amp; delete business</div>
+          <div class="subnav-sub">Change Primary Admin or delete business</div>
         </div>
         <div class="settings-subnav-item ${settingsTab==='security'?'active':''}" data-tab="security">
           <div class="subnav-title">Security</div>
@@ -14869,6 +14857,10 @@ function renderAccountTab(){
   const content = document.getElementById('settingsContent');
   const canDelete = state.businesses.length > 1;
   content.innerHTML = `
+    <div class="settings-section">
+      <h4>Primary Admin</h4>
+      <p style="font-size:13px;color:var(--text-dim);margin:0;">You are the primary admin of this business.</p>
+    </div>
     <div class="settings-section">
       <h4>Appearance</h4>
       <div class="toggle-row">
@@ -15383,6 +15375,16 @@ function makeQrImage(text){
   }
 }
 
+// When the full backup is too big for one QR code, it is split into several
+// frames (each independently small enough to scan) that play automatically
+// one after another. The scanner side collects every frame and reassembles
+// them before importing.
+const QR_CHUNK_SIZE = 900;
+let qrShowFrameTimer = null;
+function stopQrShowAnimation(){
+  if(qrShowFrameTimer){ clearInterval(qrShowFrameTimer); qrShowFrameTimer = null; }
+}
+
 let qrScanStream = null;
 let qrScanRAF = null;
 async function startQrScanner(videoEl, canvasEl, onDetect){
@@ -15397,15 +15399,25 @@ async function startQrScanner(videoEl, canvasEl, onDetect){
   await videoEl.play();
   const ctx = canvasEl.getContext('2d', { willReadFrequently: true });
   let done = false;
+  let busy = false;
+  let lastData = null;
   const tick = ()=>{
     if(done) return;
-    if(videoEl.readyState === videoEl.HAVE_ENOUGH_DATA){
+    if(!busy && videoEl.readyState === videoEl.HAVE_ENOUGH_DATA){
       canvasEl.width = videoEl.videoWidth;
       canvasEl.height = videoEl.videoHeight;
       ctx.drawImage(videoEl, 0, 0, canvasEl.width, canvasEl.height);
       const imgData = ctx.getImageData(0, 0, canvasEl.width, canvasEl.height);
       const code = jsQR(imgData.data, imgData.width, imgData.height, { inversionAttempts: 'dontInvert' });
-      if(code && code.data){ done = true; onDetect(code.data); return; }
+      if(code && code.data && code.data !== lastData){
+        lastData = code.data;
+        busy = true;
+        Promise.resolve(onDetect(code.data)).then((keepScanning)=>{
+          busy = false;
+          if(!keepScanning) done = true; else qrScanRAF = requestAnimationFrame(tick);
+        });
+        return;
+      }
     }
     qrScanRAF = requestAnimationFrame(tick);
   };
@@ -15441,12 +15453,13 @@ function openQrSyncModal(){
       </div>
     </div>
   `;
-  const close = ()=>{ stopQrScanner(); modalRoot.innerHTML=''; };
+  const close = ()=>{ stopQrScanner(); stopQrShowAnimation(); modalRoot.innerHTML=''; };
   document.getElementById('closeModal').onclick = close;
   document.getElementById('ov').onclick = (e)=>{ if(e.target.id==='ov') close(); };
   document.querySelectorAll('[data-qrtab]').forEach(el=>{
     el.onclick = ()=>{
       stopQrScanner();
+      stopQrShowAnimation();
       qrSyncTab = el.getAttribute('data-qrtab');
       openQrSyncModal();
     };
@@ -15455,27 +15468,71 @@ function openQrSyncModal(){
 }
 
 async function renderShowQrPanel(){
+  stopQrShowAnimation();
   const body = document.getElementById('qrPanelBody');
   body.innerHTML = `<p class="qr-note">Preparing QR code…</p>`;
   const payload = await buildBackupPayload();
   const encoded = await gzipCompressToBase64(JSON.stringify(payload));
-  const img = makeQrImage(encoded);
-  if(!img){
-    body.innerHTML = `<div class="qr-warn">Your data is too large to fit in a single QR code. Please use <b>Export Backup</b> / <b>Import Backup</b> (file) instead to move data to the other device.</div>`;
+  const singleImg = makeQrImage(encoded);
+
+  if(singleImg){
+    body.innerHTML = `
+      <img src="${singleImg}" alt="Backup QR code" id="qrShowImage">
+      <p class="qr-note">On the other device, open EasyBusy → <b>QR Sync → Scan &amp; Import</b>, and scan this code. Whichever side has the newer update wins — older data will never overwrite newer data.</p>
+      <div class="qr-share-actions">
+        <button type="button" class="btn btn-outline" id="qrSaveBtn">💾 Save</button>
+        <button type="button" class="btn btn-primary" id="qrShareBtn">➜ Share</button>
+      </div>
+    `;
+    const saveBtn = document.getElementById('qrSaveBtn');
+    const shareBtn = document.getElementById('qrShareBtn');
+    if(saveBtn) saveBtn.onclick = ()=> saveQrImage(singleImg);
+    if(shareBtn) shareBtn.onclick = ()=> shareQrImage(singleImg);
     return;
   }
+
+  // Too big for a single frame — split into an auto-playing multi-part sequence.
+  const chunks = [];
+  for(let i=0;i<encoded.length;i+=QR_CHUNK_SIZE) chunks.push(encoded.slice(i, i+QR_CHUNK_SIZE));
+  const total = chunks.length;
+  const frames = [];
+  for(let i=0;i<total;i++){
+    const framePayload = `EBQR2|${total}|${i}|${chunks[i]}`;
+    const img = makeQrImage(framePayload);
+    if(!img){
+      body.innerHTML = `<div class="qr-warn">Your data is too large even for QR Sync's multi-part mode. Please use <b>Export Backup</b> / <b>Import Backup</b> (file) instead to move data to the other device.</div>`;
+      return;
+    }
+    frames.push(img);
+  }
+
   body.innerHTML = `
-    <img src="${img}" alt="Backup QR code" id="qrShowImage">
-    <p class="qr-note">On the other device, open EasyBusy → <b>QR Sync → Scan &amp; Import</b>, and scan this code. Whichever side has the newer update wins — older data will never overwrite newer data.</p>
+    <img src="${frames[0]}" alt="Backup QR code frame" id="qrShowImage">
+    <p class="qr-frame-counter" id="qrFrameCounter">Frame 1 of ${total}</p>
+    <p class="qr-note">Your data is too big for a single code, so it's split into ${total} QR frames that play automatically. On the other device, open <b>QR Sync → Scan &amp; Import</b> and hold the camera steady until every frame has been scanned.</p>
     <div class="qr-share-actions">
-      <button type="button" class="btn btn-outline" id="qrSaveBtn">💾 Save</button>
-      <button type="button" class="btn btn-primary" id="qrShareBtn">➜ Share</button>
+      <button type="button" class="btn btn-outline" id="qrPrevBtn">‹ Prev</button>
+      <button type="button" class="btn btn-outline" id="qrPauseBtn">⏸ Pause</button>
+      <button type="button" class="btn btn-outline" id="qrNextBtn">Next ›</button>
     </div>
   `;
-  const saveBtn = document.getElementById('qrSaveBtn');
-  const shareBtn = document.getElementById('qrShareBtn');
-  if(saveBtn) saveBtn.onclick = ()=> saveQrImage(img);
-  if(shareBtn) shareBtn.onclick = ()=> shareQrImage(img);
+  let idx = 0;
+  let playing = true;
+  const imgEl = document.getElementById('qrShowImage');
+  const counterEl = document.getElementById('qrFrameCounter');
+  const pauseBtn = document.getElementById('qrPauseBtn');
+  function showFrame(i){
+    idx = ((i % total) + total) % total;
+    imgEl.src = frames[idx];
+    counterEl.textContent = `Frame ${idx+1} of ${total}`;
+  }
+  qrShowFrameTimer = setInterval(()=>{ if(playing) showFrame(idx+1); }, 700);
+  document.getElementById('qrPrevBtn').onclick = ()=>{ playing = false; pauseBtn.textContent = '▶ Play'; showFrame(idx-1); };
+  document.getElementById('qrNextBtn').onclick = ()=>{ playing = false; pauseBtn.textContent = '▶ Play'; showFrame(idx+1); };
+  pauseBtn.onclick = ()=>{
+    playing = !playing;
+    pauseBtn.textContent = playing ? '⏸ Pause' : '▶ Play';
+  };
 }
 
 function dataUrlToBlob(dataUrl){
@@ -15544,10 +15601,11 @@ function renderScanQrPanel(){
   const video = document.getElementById('qrScanVideo');
   const canvas = document.getElementById('qrScanCanvas');
   const status = document.getElementById('qrScanStatus');
-  startQrScanner(video, canvas, async (data)=>{
-    status.textContent = 'QR code found — importing…';
+  let multipart = null; // { total, received: Map<index, chunk> }
+
+  async function finishImport(encoded){
     try{
-      const jsonStr = await gzipDecompressFromBase64(data);
+      const jsonStr = await gzipDecompressFromBase64(encoded);
       const payload = JSON.parse(jsonStr);
       await mergeIncomingBackup(payload);
       const modalRoot = document.getElementById('modalRoot');
@@ -15556,9 +15614,41 @@ function renderScanQrPanel(){
       showToast('Synced — newer data kept on both sides');
     }catch(e){
       showToast('This QR code is not a valid EasyBusy backup');
+      multipart = null;
       stopQrScanner();
       renderScanQrPanel();
     }
+  }
+
+  startQrScanner(video, canvas, async (data)=>{
+    // Multi-part frame: "EBQR2|<total>|<index>|<chunk>"
+    if(data.startsWith('EBQR2|')){
+      const p1 = data.indexOf('|');
+      const p2 = data.indexOf('|', p1 + 1);
+      const p3 = data.indexOf('|', p2 + 1);
+      const total = parseInt(data.slice(p1 + 1, p2), 10);
+      const index = parseInt(data.slice(p2 + 1, p3), 10);
+      const chunk = data.slice(p3 + 1);
+      if(!total || isNaN(index)) return true; // ignore malformed frame, keep scanning
+
+      if(!multipart || multipart.total !== total){
+        multipart = { total, received: new Map() };
+      }
+      multipart.received.set(index, chunk);
+      status.textContent = `Scanning… ${multipart.received.size} of ${total} parts received`;
+
+      if(multipart.received.size < total) return true; // keep scanning for remaining parts
+
+      let combined = '';
+      for(let i=0;i<total;i++) combined += multipart.received.get(i) || '';
+      await finishImport(combined);
+      return false;
+    }
+
+    // Legacy single-frame code
+    status.textContent = 'QR code found — importing…';
+    await finishImport(data);
+    return false;
   });
 }
 

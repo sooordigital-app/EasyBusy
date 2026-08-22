@@ -7,7 +7,7 @@
 //
 // IMPORTANT: bump CACHE_NAME (v1 -> v2 -> v3 ...) every time you redeploy.
 // That's what makes the old cache get deleted below and forces the new files to load.
-const CACHE_NAME = 'easybusy-v7';
+const CACHE_NAME = 'easybusy-v8';
 const APP_SHELL = [
   './manifest.json',
   './icons/icon-192.png',
