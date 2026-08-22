@@ -311,6 +311,20 @@
   .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
   .filters select{border:1px solid var(--border);background:#fff;border-radius:var(--radius);padding:8px 10px;font-size:13px;}
 
+  .balance-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;}
+  .balance-row{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;}
+  .balance-row + .balance-row{border-top:1px solid var(--border);}
+  .balance-row .label{font-size:16px;font-weight:600;color:var(--text);}
+  .balance-row .val{font-size:22px;font-weight:800;color:var(--text);}
+  .balance-row.net{padding:18px;}
+  .balance-row.net .label{font-size:17px;font-weight:700;}
+  .balance-row.net .val{font-size:24px;}
+  .balance-row.inout .label,.balance-row.inout .val{font-size:16px;font-weight:600;}
+  .balance-row.inout.in .val{color:var(--green);font-weight:700;}
+  .balance-row.inout.out .val{color:var(--red);font-weight:700;}
+  .balance-card .view-reports-link{border:none;border-top:1px solid var(--border);border-radius:0;margin-bottom:0;}
+
+  /* legacy 3-card summary bar (kept for other pages) */
   .summary-bar{display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
   .summary-card{flex:1;min-width:150px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;}
   .summary-card .label{font-size:12px;color:var(--text-dim);margin-bottom:6px;}
@@ -13913,13 +13927,12 @@ function renderTxPage(){
           `}
         </div>
 
-        <div class="summary-bar">
-          <div class="summary-card in"><div class="label">Total Cash In</div><div class="val">${fmtMoney(tot.inSum)}</div></div>
-          <div class="summary-card out"><div class="label">Total Cash Out</div><div class="val">${fmtMoney(tot.outSum)}</div></div>
-          <div class="summary-card net"><div class="label">Net Balance</div><div class="val">${fmtMoney(tot.net)}</div></div>
+        <div class="balance-card">
+          <div class="balance-row net"><div class="label">Net Balance</div><div class="val">${fmtMoney(tot.net)}</div></div>
+          <div class="balance-row inout in"><div class="label">Total In (+)</div><div class="val">${fmtMoney(tot.inSum)}</div></div>
+          <div class="balance-row inout out"><div class="label">Total Out (-)</div><div class="val">${fmtMoney(tot.outSum)}</div></div>
+          <button type="button" class="view-reports-link" id="viewReportsBtn">View Reports <span>›</span></button>
         </div>
-
-        <button type="button" class="view-reports-link" id="viewReportsBtn">View Reports <span>›</span></button>
 
         <div class="tx-toolbar">
           <div class="tx-search-filter-row" style="flex:1;">
@@ -14721,7 +14734,7 @@ function renderSettingsPage(){
         </div>
         <div class="settings-subnav-item ${settingsTab==='account'?'active':''}" data-tab="account">
           <div class="subnav-title">Settings</div>
-          <div class="subnav-sub">Change Primary Admin or delete business</div>
+          <div class="subnav-sub">Appearance, backup &amp; delete business</div>
         </div>
         <div class="settings-subnav-item ${settingsTab==='security'?'active':''}" data-tab="security">
           <div class="subnav-title">Security</div>
@@ -14856,10 +14869,6 @@ function renderAccountTab(){
   const content = document.getElementById('settingsContent');
   const canDelete = state.businesses.length > 1;
   content.innerHTML = `
-    <div class="settings-section">
-      <h4>Primary Admin</h4>
-      <p style="font-size:13px;color:var(--text-dim);margin:0;">You are the primary admin of this business.</p>
-    </div>
     <div class="settings-section">
       <h4>Appearance</h4>
       <div class="toggle-row">
